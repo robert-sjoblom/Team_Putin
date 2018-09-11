@@ -1,0 +1,58 @@
+
+Database: Users
+User = {
+  _id: ObjectID,
+  name: string,
+  email: string,
+  password: hashedPassword,
+  createdAt: Date.now()
+  // Products?
+  // Orders?
+  // Or do we reference UID in each order/product
+}
+
+Database: Orders
+Order = {
+  _id: ObjectID,
+  status: enum(['Delivered', 'Cancel', 'Shipped', ]),
+  orderNr: Number,
+  orderDate: Date(),
+  orderValue: Number,
+  orderType: enum(['Download', 'Mail-order', 'In-store']),
+}
+
+Database: Transactions
+Transaction = {
+  _id: ObjectID,
+  amount: Number, // dis is money
+  status: enum(['Completed', 'Awaiting Payment', 'Payment Expired'])
+  fromUserName: string
+}
+
+Database: Products
+Product = {
+  _id: ObjectID,
+  name: string,
+  price: Number,
+}
+
+Database: Messages
+Message = {
+  _id: ObjectID,
+  sender: string,
+  message: string,
+  sentAtDate: Date(), // date string, not Date object.
+}
+
+Database: Activities
+Activity = {
+  date: Date() //
+  description: string
+}
+
+Database: Quotes
+Quote = {
+  message: string,
+  name: string,
+  position: string // Director, Sales Admin etc.
+}
