@@ -5,12 +5,13 @@
   "dependencies": {
     "bootstrap": "^4.1.3",
     "jquery": "^3.3.1",
+    "morris.js": "^0.5.0",
     "popper.js": "^1.14.4",
+    "raphael": "^2.2.7",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-scripts": "1.1.5",
-    "morris.js": "^0.5.0",
-    "raphael": "^2.2.7"
+    "sparkline": "^0.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
