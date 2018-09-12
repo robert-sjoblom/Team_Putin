@@ -3,78 +3,18 @@ import React from 'react';
 import InboxWrapper from '../Inbox/InboxWrapper';
 import QuoteWrapper from '../QuoteBox/QuoteWrapper';
 import RecentActivities from '../RecentActivities/RecentActivities';
+import ConciseWrapper from '../conciseBoxes/conciseWrapper/conciseWrapper';
 
 const Wrapper = () => {
     return (
         <div className="wrapper">
             <div className="container-fluid">
                 <div className="row">
-
+                    
                     {/* <!-- START OF CONCISE STAT BOXES COMPONENT --> */}
-                    <div className="col-xl-3 col-md-6">
-                        <div className="card mini-stat bg-primary">
-                            <div className="card-body mini-stat-img">
-                                <div className="mini-stat-icon">
-                                    <i className="mdi mdi-cube-outline float-right"></i>
-                                </div>
-                                <div className="text-white">
-                                    <h6 className="text-uppercase mb-3">Orders</h6>
-                                    <h4 className="mb-4">1,587</h4>
-                                    <span className="badge badge-info"> +11% </span> <span className="ml-2">From previous period</span>
-                                </div>
-                            </div>
-                        </div>
+                        <ConciseWrapper></ConciseWrapper>
                     </div>
-                    {/* <!-- END OF CONCISE STAT BOXES COMPONENT -->
-    
-                    <!-- ANOTHER CONCISE STAT BOX COMPONENT --> */}
-                    <div className="col-xl-3 col-md-6">
-                        <div className="card mini-stat bg-primary">
-                            <div className="card-body mini-stat-img">
-                                <div className="mini-stat-icon">
-                                    <i className="mdi mdi-buffer float-right"></i>
-                                </div>
-                                <div className="text-white">
-                                    <h6 className="text-uppercase mb-3">Revenue</h6>
-                                    <h4 className="mb-4">$46,782</h4>
-                                    <span className="badge badge-danger"> -29% </span> <span className="ml-2">From previous period</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* <!-- END OF ANOTHER CONCISE STAT BOX COMPONENT -->
-    
-                    <!-- ETC --> */}
-                    <div className="col-xl-3 col-md-6">
-                        <div className="card mini-stat bg-primary">
-                            <div className="card-body mini-stat-img">
-                                <div className="mini-stat-icon">
-                                    <i className="mdi mdi-tag-text-outline float-right"></i>
-                                </div>
-                                <div className="text-white">
-                                    <h6 className="text-uppercase mb-3">Average Price</h6>
-                                    <h4 className="mb-4">$15.9</h4>
-                                    <span className="badge badge-warning"> 0% </span> <span className="ml-2">From previous period</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-xl-3 col-md-6">
-                        <div className="card mini-stat bg-primary">
-                            <div className="card-body mini-stat-img">
-                                <div className="mini-stat-icon">
-                                    <i className="mdi mdi-briefcase-check float-right"></i>
-                                </div>
-                                <div className="text-white">
-                                    <h6 className="text-uppercase mb-3">Product Sold</h6>
-                                    <h4 className="mb-4">1890</h4>
-                                    <span className="badge badge-info"> +89% </span> <span className="ml-2">From previous period</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {/* <!-- end row --> */}
+                    {/* <!-- end row --> */}
 
                 <div className="row">
                     {/* <!-- MONTHLY EARNINGS BOX TO THE LEFT --> */}
