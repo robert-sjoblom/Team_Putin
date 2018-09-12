@@ -3,6 +3,7 @@ import Raphael from 'raphael';
 import React, { Component } from 'react';
 import './App.css';
 import Wrapper from './wrapper/Wrapper';
+import Navbar from './navigationbar/navwrapper';
 
 
 class App extends Component {
@@ -12,9 +13,10 @@ class App extends Component {
   }
   render() {
     return (
-      // <Header />
+      <React.Fragment>
+        <Navbar />
         <Wrapper />
-      // <Footer />
+      </React.Fragment>
     );
   }
 }
