@@ -28,7 +28,9 @@ app.use((req, res, next) => {
 
 // REST API Routes
 const userRoutes = require('./routes/users.js');
+const orderRoutes = require('./routes/orders.js');
 
 app.use('/api/users', userRoutes);
+app.use('/api/orders', orderRoutes);
 
 module.exports = app;
