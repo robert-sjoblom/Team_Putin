@@ -1,8 +1,12 @@
 import React from 'react';
+import Requests from '../../Request';
 import InboxItem from './InboxItem';
 
 class InboxWrapper extends React.Component {
   // we fetch inbox here
+  componentDidMount() {
+    Requests.get('recipes');
+  }
 
   render() {
     return (

@@ -1,17 +1,17 @@
 import React from 'react';
 
 const Footer = () => {
-    return (
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        © 2018 Lexa - <span class="d-none d-sm-inline-block"> by Team Putin Sverige NGO</span>.
+  return (
+    <footer className="footer">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-12">
+            © 2018 Lexa - <span className="d-none d-sm-inline-block"> by Team Putin Sverige NGO</span>.
                     </div>
-                </div>
-            </div>
-        </footer>
-    )
+        </div>
+      </div>
+    </footer>
+  )
 }
 
 export default Footer;
