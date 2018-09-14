@@ -6,7 +6,7 @@ const Footer = () => {
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        © 2018 Lexa - <span class="d-none d-sm-inline-block"> by Team Putin Sverige AB</span>.
+                        © 2018 Lexa - <span class="d-none d-sm-inline-block"> by Team Putin Sverige NGO</span>.
                     </div>
                 </div>
             </div>
