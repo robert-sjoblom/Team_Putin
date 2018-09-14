@@ -5,6 +5,7 @@ const messages = require('../controllers/messagesController');
 
 // Unsecured routes
 route.get('/', messages.getMessages);
+route.post('/', messages.addMessage);
 
 // Secured routes
 // route.get('/', authorization, users.getAllUsers);
