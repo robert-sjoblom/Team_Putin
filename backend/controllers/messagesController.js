@@ -6,7 +6,6 @@ exports.getMessages = (req, res) => {
   Message.find()
     .exec()
     .then((messages) => {
-      console.log(messages);
       res.status(200).json({ count: messages.length, messages });
     })
     .catch(err => res.status(500).json({ error: err }));
