@@ -9,7 +9,7 @@ const RecentActivities = () => {
           <h4 className="mt-0 header-title mb-4">Recent Activity Feed</h4>
 
           <ol className="activity-feed mb-0">
-            <Activity date="Jun 63" activity-text="Responded to need “Freudian Activities”"
+            <Activity date="Jun 63" activity="Responded to need “Freudian Activities”" />
             <li className="feed-item">
               <div className="feed-item-list">
                 <span className="date">Jun 24</span>
