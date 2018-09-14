@@ -2,8 +2,9 @@
 import Raphael from 'raphael';
 import React, { Component } from 'react';
 import './App.css';
-import Wrapper from './wrapper/Wrapper';
+import Footer from './Footer/footer';
 import Navbar from './navigationbar/navwrapper';
+import Wrapper from './wrapper/Wrapper';
 
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
       <React.Fragment>
         <Navbar />
         <Wrapper />
+        <Footer />
       </React.Fragment>
     );
   }
