@@ -1,4 +1,5 @@
 import React from 'react';
+import Activity from './Activity';
 
 const RecentActivities = () => {
   return (
@@ -8,12 +9,7 @@ const RecentActivities = () => {
           <h4 className="mt-0 header-title mb-4">Recent Activity Feed</h4>
 
           <ol className="activity-feed mb-0">
-            <li className="feed-item">
-              <div className="feed-item-list">
-                <span className="date">Jun 25</span>
-                <span className="activity-text">Responded to need “Volunteer Activities”</span>
-              </div>
-            </li>
+            <Activity date="Jun 63" activity-text="Responded to need “Freudian Activities”"
             <li className="feed-item">
               <div className="feed-item-list">
                 <span className="date">Jun 24</span>
