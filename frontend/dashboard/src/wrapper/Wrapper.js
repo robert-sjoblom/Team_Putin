@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import InboxWrapper from '../Inbox/InboxWrapper';
+import QuoteWrapper from '../QuoteBox/QuoteWrapper';
 import RecentActivities from '../RecentActivities/RecentActivities';
 
 const Wrapper = () => {
@@ -160,41 +161,9 @@ const Wrapper = () => {
 
                     {/* <!-- QUOTE COMPONENT  -->
                     <!-- NOTE the graph below is part of this --> */}
-                    <div className="col-xl-4">
-                        <div className="card widget-user m-b-20">
-                            <div className="widget-user-desc p-4 text-center bg-primary position-relative">
-                                <i className="fas fa-quote-left h3 text-white-50"></i>
-                                <p className="text-white mb-0">The European languages are members of the same family. Their separate
-                                  existence is a myth. For science, music, sport, etc, Europe the same vocabulary. The languages only in
-                    their grammar.</p>
-                            </div>
-                            <div className="p-4">
-                                <div className="float-left mt-2 mr-3">
-                                    <img src="assets/images/users/user-2.jpg" alt="" className="rounded-circle thumb-md" />
-                                </div>
-                                <h6 className="mb-1">Marie Minnick</h6>
-                                <p className="text-muted mb-0">Marketing Manager</p>
-                            </div>
-                        </div>
-                        <div className="card m-b-20">
-                            <div className="card-body">
-                                <h4 className="mt-0 header-title">Yearly Sales</h4>
-                                <div className="row">
-                                    <div className="col-md-4">
-                                        <div>
-                                            <h4>52,345</h4>
-                                            <p className="text-muted">The languages only differ grammar</p>
-                                            <a href="#" className="text-primary">Learn more <i className="mdi mdi-chevron-double-right"></i></a>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-8 text-right">
-                                        <div id="sparkline"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <QuoteWrapper />
 
-                    </div>
+                    
                 </div>
                 {/* <!-- end row --> */}
 

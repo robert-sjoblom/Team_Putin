@@ -1,11 +1,12 @@
 import React from 'react';
+import ItemSoldGraph from './itemSoldGraph';
 
 
 const ItemSold = () => {
 
     return (
         <div className="state-graph">
-            <div id="header-chart-2"></div>
+            <ItemSoldGraph></ItemSoldGraph>
             <div className="info">Item Sold 1230</div>
         </div>
     )

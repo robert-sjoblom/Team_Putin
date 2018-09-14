@@ -15,7 +15,7 @@ class UserProfile extends React.Component {
             <li className="dropdown notification-list">
                 <div className="dropdown notification-list nav-pro-img">
                     <a className="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets/images/users/user-4.jpg" alt="user" className="rounded-circle"/>
+                        <img src={require('../assets/images/users/user-4.jpg')} alt="user" className="rounded-circle"/>
                     </a>
                     <div className="dropdown-menu dropdown-menu-right profile-dropdown ">
                         
