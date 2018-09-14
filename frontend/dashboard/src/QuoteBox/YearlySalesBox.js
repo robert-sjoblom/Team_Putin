@@ -26,7 +26,7 @@ const YearlySalesBox = () => {
             <SalesFigureAndQuote salesFigure="52,345" quote="Custom Quote Here" />
           </div>
           <div className="col-md-8 text-right">
-            <YearlySalesDiagram />
+            <YearlySalesDiagram figures={[0, 0, 4, 7, 10, 12, 7, 4, 9, 12, 13, 11, 12]}/>
             {/* div id="sparklin" was here */}
           </div>
         </div>

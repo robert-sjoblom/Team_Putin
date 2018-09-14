@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 
 class YearlySalesDiagram extends React.Component {
   componentDidMount() {
-    $(ReactDOM.findDOMNode(this)).sparkline([0, 0, 4, 7, 10, 12, 7, 4, 9, 12, 13, 11, 12], {
+    $(ReactDOM.findDOMNode(this)).sparkline(this.props.figures, {
       type: 'bar',
       height: '134',
       barWidth: '10',
