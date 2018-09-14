@@ -1,9 +1,11 @@
 import React from 'react';
 
 
-const DashboardHeader = () => {
 
-    return (
+class DashboardHeader extends React.Component {
+
+    render(){
+        return (
         <div className="navbar-custom">
             <div className="container-fluid">
                 <div id="navigation">
@@ -15,11 +17,21 @@ const DashboardHeader = () => {
                                 <span>Dashboard</span>
                             </a>
                         </li>
+                        <li className="has-submenu">
+                        <button type="button" className="btn btn-primary mr-3" data-toggle="modal" data-target="#exampleModal">
+                            New Order
+                        </button>
+                        
+                        </li>
+                        <li className="has-submenu">
+                            <button className="btn btn-primary mr-3">New Transaction</button>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     )
+    }
 }
 
 export default DashboardHeader;
