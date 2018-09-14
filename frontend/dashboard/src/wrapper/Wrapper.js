@@ -1,11 +1,11 @@
 // @ts-nocheck
 import React from 'react';
-import ConciseWrapper from '../conciseBoxes/conciseWrapper/conciseWrapper';
-import InboxWrapper from '../Inbox/InboxWrapper';
-import OrderWrapper from '../LatestOrders/orderWrapper';
-import TransactionWrapper from '../LatestTransactions/transactionWrapper';
-import QuoteWrapper from '../QuoteBox/QuoteWrapper';
-import RecentActivities from '../RecentActivities/RecentActivities';
+import ConciseWrapper from './conciseBoxes/conciseWrapper/conciseWrapper';
+import InboxWrapper from './Inbox/InboxWrapper';
+import OrderWrapper from './LatestOrders/orderWrapper';
+import TransactionWrapper from './LatestTransactions/transactionWrapper';
+import QuoteWrapper from './QuoteWrapper/QuoteWrapper';
+import RecentActivities from './RecentActivities/RecentActivities';
 
 const Wrapper = () => {
   return (
