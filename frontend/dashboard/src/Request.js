@@ -1,6 +1,6 @@
 
 export default class Requests {
-  static api = 'http://recipes.hostileux.com/';
+  static api = 'http://localhost:3001/api/';
 
   static formatPayload(data, method) {
     // attach any headers around the requests, including tokens
