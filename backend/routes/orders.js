@@ -12,5 +12,4 @@ route.post('/', orders.placeOrder);
 // route.get('/:id', authorization, users.getUser);
 // route.put('/:id', authorization, users.updateUser);
 // route.delete('/:id', authorization, users.removeUser);
-
 module.exports = route;
