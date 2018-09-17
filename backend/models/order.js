@@ -26,7 +26,7 @@ const orderSchema = new db.Schema({
     lowercase: true,
     trim: true
   },
-  orderDate: { type: String, required: true }
+  orderDate: { type: Date, default: Date.now }
 }, { collection: 'orders' });
 
 module.exports = db.model('Order', orderSchema);

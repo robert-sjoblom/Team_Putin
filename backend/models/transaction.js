@@ -9,14 +9,14 @@ const transactionSchema = new db.Schema({
   status: {
     type: String,
     enum: [
-      'delivered',
-      'cancelled',
-      'shipped'
+      'completed',
+      'awaiting payment',
+      'payment expired'
     ],
     lowercase: true,
     trim: true
   },
-  transactionDate: { type: String, required: true }
+  transactionDate: { type: Date, default: Date.now }
 }, { collection: 'transactions' });
 
 module.exports = db.model('Transaction', transactionSchema);
