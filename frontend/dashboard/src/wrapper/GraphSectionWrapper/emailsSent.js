@@ -1,4 +1,5 @@
 import React from 'react';
+import AreaDiagram from './areaDiagram';
 
 class EmailsSent extends React.Component {
 
@@ -24,7 +25,7 @@ class EmailsSent extends React.Component {
                             </div>
                         </div>
 
-                        <div id="morris-area-example" className="dashboard-charts morris-charts"></div>
+                        <AreaDiagram data={this.props.graphData}></AreaDiagram>
                     </div>
                 </div>
           </div>
