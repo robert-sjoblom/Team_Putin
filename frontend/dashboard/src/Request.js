@@ -5,6 +5,7 @@ export default class Requests {
   static formatPayload(data, method) {
     // attach any headers around the requests, including tokens
     // we'll deal with this later.
+    console.log(data, method)
     return null;
   }
 

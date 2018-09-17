@@ -6,6 +6,7 @@ import Footer from './Footer/footer';
 import Navbar from './navigationbar/navwrapper';
 import Wrapper from './wrapper/Wrapper';
 import OrderForm from './navigationbar/dashboard/orderform';
+import TransactionForm from './navigationbar/dashboard/transactionform';
 
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <OrderForm></OrderForm>
+        <TransactionForm></TransactionForm>
         <Navbar />
         <Wrapper />
         <Footer />
