@@ -41,7 +41,7 @@ Message = {
   _id: ObjectID,
   sender: string,
   message: string,
-  sentAtDate: Date(), // date string, not Date object.
+  receivedAtTime: Date(), // date string, not Date object.
 }
 
 Database: Activities
