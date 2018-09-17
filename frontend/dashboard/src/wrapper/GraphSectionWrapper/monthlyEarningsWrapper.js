@@ -1,6 +1,12 @@
 import React from 'react';
+import DonutDiagram from './donutDiagram';
+import BarDiagram from './barDiagram';
 
 class MonthlyEarnings extends React.Component {
+
+    ComponentDidMount(){
+        
+    }
 
     render() {
         return ( 
@@ -20,8 +26,8 @@ class MonthlyEarnings extends React.Component {
                             </div>
                         </div>
 
-                        <div id="morris-donut-example" className="dashboard-charts morris-charts"></div>
-                        <div id="morris-bar-stacked" className="dashboard-charts morris-charts"></div>
+                        { this.props.graphData.type === "donut" && <DonutDiagram data={this.props.graphData}></DonutDiagram> }
+                        { this.props.graphData.type === "bar" && <BarDiagram data={this.props.graphData}></BarDiagram> }
                     </div>
                 </div>
             </div>
