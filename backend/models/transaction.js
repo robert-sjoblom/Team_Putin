@@ -17,6 +17,6 @@ const transactionSchema = new db.Schema({
     trim: true
   },
   transactionDate: { type: String, required: true }
-}, { collection: 'transaction' });
+}, { collection: 'transactions' });
 
 module.exports = db.model('Transaction', transactionSchema);
