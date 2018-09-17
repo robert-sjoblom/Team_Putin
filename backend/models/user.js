@@ -15,6 +15,6 @@ const userSchema = new db.Schema({
   lastname: { type: String, required: true },
   created: { type: Date, default: Date.now },
   modified: { type: Date, default: Date.now }
-});
+}, { collection: 'Users' });
 
 module.exports = db.model('User', userSchema);
