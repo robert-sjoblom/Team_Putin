@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <OrderForm></OrderForm>
-        <TransactionForm></TransactionForm>
+        <TransactionForm ></TransactionForm>
         <Navbar />
         <Wrapper />
         <Footer />

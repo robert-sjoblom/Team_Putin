@@ -5,9 +5,30 @@ import Dropdown from './dropdown';
 import UserProfile from './userProfile';
 import DetailsWrapper from './detailswrapper';
 import DashboardHeader from './dashboardHeader';
+import Requests from '../Request';
 
 class Navbar extends React.Component{
 
+    constructor(props){
+        super(props);
+        this.state = {
+            notes: [],
+        }
+    }
+
+    componentDidMount(){
+        Requests.get('notifications')
+            .then(res => this.setState({...res}))
+            .then(() => console.log(this.state, "hello from navwrapper"))
+            .catch((err) => console.log(err));
+    }
+
+    updateTransactions(){
+        Requests.get('notifications')
+            .then(res => this.setState({...res}))
+            .then(() => console.log(this.state, "hello from navwrapper"))
+            .catch((err) => console.log(err));
+    }
 
     render(){
         return (
@@ -18,7 +39,7 @@ class Navbar extends React.Component{
                     <div className="menu-extras topbar-custom">
                         <ul className="float-right list-unstyled mb-0 ">
                             <Search></Search>
-                            <Dropdown></Dropdown>
+                            <Dropdown notes={this.state.notes}></Dropdown>
                             <UserProfile></UserProfile>
                             {/* not used */}
                             <li className="menu-item">
