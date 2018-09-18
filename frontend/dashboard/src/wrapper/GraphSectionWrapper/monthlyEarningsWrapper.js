@@ -4,10 +4,6 @@ import BarDiagram from './barDiagram';
 
 class MonthlyEarnings extends React.Component {
 
-    ComponentDidMount(){
-        
-    }
-
     render() {
         return ( 
             <div className="col-xl-3">
