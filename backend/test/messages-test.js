@@ -1,40 +1,118 @@
 // @ts-nocheck
-/* eslint-disable */
-const mongoose = require('mongoose');
-// const request = require('supertest')("http://localhost:3001/api/messages");
-const request = require('supertest');
+/* global describe, before, it, after */
+const http = require('http');
+const db = require('mongoose');
+const request = require('supertest')('http://localhost:3001/');
 const chai = require('chai');
+const app = require('../app');
 
-const expect = chai.expect;
+const { expect } = chai;
 const Message = require('../models/message');
+const config = require('../config');
 
-const server = require('../server');
 
+describe('Messages list API integration tests', () => {
+  // COPY BEFORE + let listener FOR YOUR OWN TESTS
+  let listener;
+  before((done) => {
+    // Node JS Web Server
+    listener = http.createServer(app).listen(config.port, () => {
+      console.log(`Node JS API Server Online on ${config.port}`);
+    });
+    // MongoDB Connection
+    db.connect(config.db, { useNewUrlParser: true })
+      .then(() => {
+        console.log(`MongoDB Connection to ${config.db} Online`);
+        done();
+      })
+      .catch(err => console.log(err));
+    db.set('useCreateIndex', true);
+  });
 
-describe('Messages list API integration tests', function(){
-  describe('#GET /messages', function() {
-    it('should get all the messages', function(done) {
-      request(server).get('/api/messages')
-        .end(function(err, res) {
-          expect(200)
-          expect(res.body).to.be.an('array')
-          expect(res.body).to.be.empty
-          done()
-        })
-    })
-  })
+  describe('Database Tests', () => {
+    describe('Test Database Write', () => {
+      it('New message saved to database', function (done) { //eslint-disable-line
+        const testMessage = new Message({
+          _id: new db.Types.ObjectId(),
+          sender: 'Bob',
+          message: '123',
+          receivedAtTime: '12:00 PM'
+        });
 
-  after(function() {
-    http.end()
-  })
-})
+        testMessage.save(done);
+      });
+      it('Try to save incorrect information to db', function (done) { //eslint-disable-line
+        // error should trigger
+        const errTestMessage = new Message({
+          message: '123',
+          receivedAtTime: '12:00 PM'
+        });
+
+        errTestMessage.save(err => { //eslint-disable-line
+          if (err) { return done(); }
+          throw new Error('Should generate error!');
+        });
+      });
+      it('Should retrieve data from test database', function (done) { //eslint-disable-line
+        // Look up the message previously saved
+        Message.find({ sender: 'Bob' }, (err, result) => {
+          if (err) { throw (err); }
+          if (result.length === 0) { throw new Error('No data!'); }
+          done();
+        });
+      });
+    });
+  });
+
+  describe('#GET /messages', () => { //eslint-disable-line
+    it('should get all the messages', (done) => {
+      request.get('api/messages')
+        .end(function (err, res) { //eslint-disable-line
+          expect(200);
+          expect(res.body).to.be.an('object');
+          expect(res.body).to.have.keys('count', 'messages');
+          done();
+        });
+    });
+
+    it('should have a message array of length 1', (done) => {
+      request.get('api/messages')
+        .end(function (err, res) { //eslint-disable-line
+          expect(res.body.messages).to.have.length(1);
+          expect(res.body.messages).to.be.an('array');
+          done();
+        });
+    });
+
+    it('should have a count key with value 1', (done) => {
+      request.get('api/messages')
+        .end(function (err, res) { //eslint-disable-line
+          expect(res.body.count).to.equal(1);
+          done();
+        });
+    });
+  });
+
+  // COPY THIS FOR YOUR OWN TESTS
+  after((done) => {
+    db.connection.db.dropDatabase(() => {
+      db.connection.close(() => {
+        console.log('Shut down mongodb connection.');
+        listener.close(() => {
+          console.log('Shut down server.');
+          done();
+        });
+      });
+    });
+  });
+});
 
 /*
 describe('Database Tests', function (done) {
   before(function(done) { //eslint-disable-line
     mongoose.connect('mongodb://localhost:27017/testingWithPutin', { useNewUrlParser: true })
     const db = mongoose.connection;
-  
+
     db.on('error', console.error.bind(console, 'connection error'));
     db.once('open', function () { //eslint-disable-line
       console.log('We are connected to the test database!');
@@ -120,7 +198,8 @@ describe('Create a new User', function () {
       .expect(201, done);
   });
 
-  it('Should report status 400 "Bad Request" when trying to create a User that already exist', function (done) {
+  it('Should report status 400 "Bad Request"
+  when trying to create a User that already exist', function (done) {
     request.post("/signup")
       .send(user_exist)
       .expect(400, done);
