@@ -21,6 +21,7 @@ export default class Requests {
   static fetch(url, method, payload = null) {
     return fetch(`${this.api}${url}`, Requests.formatPayload(payload, method))
       .then(response => response.json())
+      .catch(err => console.log(err))
     // .then(response => Requests.formatResponse(response));
   }
 
