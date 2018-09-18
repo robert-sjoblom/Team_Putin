@@ -21,4 +21,3 @@ class YearlySalesDiagram extends React.Component {
 }
 
 export default YearlySalesDiagram;
-
