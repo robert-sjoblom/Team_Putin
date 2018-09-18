@@ -3,14 +3,19 @@ const http = require('http');
 const db = require('mongoose');
 const app = require('./app.js');
 
-const port = process.env.SERVER_PORT || 3000;
+const config = require('./config');
 
-// Node JS Web Server
-http.createServer(app).listen(port, () => console.log(`Node JS API Server Online on ${port}`));
+const server = () => {
+  // Node JS Web Server
+  http.createServer(app).listen(config.port, () => console.log(`Node JS API Server Online on ${config.port}`));
 
-// MongoDB Connection
-db.connect(process.env.MONGO_DB_CONNECTIONSTRING, { useNewUrlParser: true })
-  .then(() => console.log(`MongoDB Connection to ${process.env.MONGO_DB_CONNECTIONSTRING} Online`))
-  .catch(err => console.log(err));
+  // MongoDB Connection
+  db.connect(config.db, { useNewUrlParser: true })
+    .then(() => console.log(`MongoDB Connection to ${config.db} Online`))
+    .catch(err => console.log(err));
 
-db.set('useCreateIndex', true);
+  db.set('useCreateIndex', true);
+};
+
+server();
+module.exports = server;

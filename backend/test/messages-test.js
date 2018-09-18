@@ -1,12 +1,35 @@
 // @ts-nocheck
 /* eslint-disable */
-const request = require('supertest')("http://localhost:3001/api/messages");
 const mongoose = require('mongoose');
+// const request = require('supertest')("http://localhost:3001/api/messages");
+const request = require('supertest');
+const chai = require('chai');
 
-const setup = './before';
-
+const expect = chai.expect;
 const Message = require('../models/message');
 
+const server = require('../server');
+
+
+describe('Messages list API integration tests', function(){
+  describe('#GET /messages', function() {
+    it('should get all the messages', function(done) {
+      request(server).get('/api/messages')
+        .end(function(err, res) {
+          expect(200)
+          expect(res.body).to.be.an('array')
+          expect(res.body).to.be.empty
+          done()
+        })
+    })
+  })
+
+  after(function() {
+    http.end()
+  })
+})
+
+/*
 describe('Database Tests', function (done) {
   before(function(done) { //eslint-disable-line
     mongoose.connect('mongodb://localhost:27017/testingWithPutin', { useNewUrlParser: true })
@@ -67,8 +90,7 @@ describe('Database Tests', function (done) {
     });
   });
 })
-
-
+*/
 
 
 /*
