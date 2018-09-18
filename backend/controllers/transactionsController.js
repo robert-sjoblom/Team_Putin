@@ -28,7 +28,8 @@ exports.makeTransaction = (req, res) => {
       });
       newNote
         .save()
-        .then(() => res.status(201).json({ message: 'New notification has been added' }));
+        .then(() => res.status(201).json({ message: 'New notification has been added' }))
+        .catch(errorMessage => res.status(500).json({ errormessage: errorMessage }));
     })
     .catch(error => res.status(500).json({ message: error }));
 };
@@ -37,6 +38,6 @@ exports.getTransactions = (req, res) => {
   Transaction
     .find()
     .exec()
-    .then(transaction => res.status(200).json({ notes: [transaction] }))
+    .then(transaction => res.status(200).json({ transaction }))
     .catch(err => res.status(500).json({ error: err }));
 };
