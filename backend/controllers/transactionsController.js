@@ -1,6 +1,7 @@
 const db = require('mongoose');
 
 const Transaction = require('../models/transaction');
+const Notification = require('../models/notification');
 
 exports.makeTransaction = (req, res) => {
   const {
@@ -16,7 +17,21 @@ exports.makeTransaction = (req, res) => {
   });
   incomingTransaction
     .save()
-    .then(() => res.status(201).json({ message: 'New Transcation Made' }));
+    .then(() => res.status(201).json({ message: 'New Transcation Made' }))
+    .then(() => {
+      const newNote = new Notification({
+        _id: new db.Types.ObjectId(),
+        status: 'bg-success',
+        type: 'mdi-martini',
+        message: 'Transaction Created',
+        messageDummy: 'Transaction successfully created'
+      });
+      newNote
+        .save()
+        .then(() => res.status(201).json({ message: 'New notification has been added' }))
+        .catch(errorMessage => res.status(500).json({ errormessage: errorMessage }));
+    })
+    .catch(error => res.status(500).json({ message: error }));
 };
 
 exports.getTransactions = (req, res) => {
