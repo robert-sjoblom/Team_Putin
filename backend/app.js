@@ -31,12 +31,12 @@ const userRoutes = require('./routes/users.js');
 const orderRoutes = require('./routes/orders.js');
 const messagesRoutes = require('./routes/messages.js');
 const transactionsRoutes = require('./routes/transactions.js');
+const notificationRoutes = require('./routes/notifications.js');
 
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/messages', messagesRoutes);
 app.use('/api/transactions', transactionsRoutes);
-
-// a comment to remove later!
+app.use('/api/notifications', notificationRoutes);
 
 module.exports = app;
