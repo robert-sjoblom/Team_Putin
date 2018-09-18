@@ -1,4 +1,5 @@
 import React from 'react';
+import Requests from '../../Request';
 import MonthlyEarningsWrapper from './monthlyEarningsWrapper';
 import EmailsSent from './emailsSent';
 
@@ -51,12 +52,48 @@ class GraphSectionWrapper extends React.Component {
         colors: ['#28bbe3','#f0f1f4']
      };
 
+    componentDidMount(){
+       this.getAndRenderCurrentMonthOrders();
+    }
+
+    getAndRenderCurrentMonthOrders(){
+        // Calculate start date of current month
+        let monthStartDate = new Date();
+        monthStartDate.setDate(1);
+        monthStartDate.setHours(0, 0, 0, 0);
+
+        // Request orders from server
+        Requests.post('orders/getSpecificOrders', {
+            status: ['shipped', 'delivered'],
+            fromOrderDate: monthStartDate
+        })
+        .then(res => {
+            let orders = res.orders;
+
+
+            // for(let i = 0; i < orders.length; i++){
+                
+            // }
+        })
+        .catch(err => console.log(err));
+    }
+
     render() {
         return ( 
             <React.Fragment>
-                <MonthlyEarningsWrapper marketPlace="56241" totalIncome="23651" graphData={this.donutData}></MonthlyEarningsWrapper>
-                <EmailsSent marketPlace="89425" totalIncome="56210" lastMonth="8974" graphData={this.areaData}></EmailsSent>
-                <MonthlyEarningsWrapper marketPlace="2548" totalIncome="6985" graphData={this.barData}></MonthlyEarningsWrapper>
+                <MonthlyEarningsWrapper 
+                    marketPlace="56241" 
+                    totalIncome="23651" 
+                    graphData={this.donutData}></MonthlyEarningsWrapper>
+                <EmailsSent 
+                    marketPlace="89425" 
+                    totalIncome="56210" 
+                    lastMonth="8974" 
+                    graphData={this.areaData}></EmailsSent>
+                <MonthlyEarningsWrapper 
+                    marketPlace="2548" 
+                    totalIncome="6985" 
+                    graphData={this.barData}></MonthlyEarningsWrapper>
             </React.Fragment>
         )
     }
