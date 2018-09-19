@@ -4,7 +4,7 @@ const TransactionItem = ({ name, status, amount, date }) => {
   return (
     <tr>
       <td>
-        <img src="assets/images/users/user-2.jpg" alt="user-image" className="thumb-sm rounded-circle mr-2" />
+        <img src={require("../../assets/images/users/user-1.jpg")} alt="user-image" className="thumb-sm rounded-circle mr-2" />
         {name}
       </td>
       <td><i className="mdi mdi-checkbox-blank-circle text-success"></i>{status}</td>
