@@ -6,8 +6,8 @@ class OrderForm extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            number: '',
-            value: '',
+            orderNr: '',
+            orderValue: '',
             status: 'Delivered',
             type: 'Download'
         };
@@ -20,11 +20,11 @@ class OrderForm extends React.Component{
     }
     // Handles value of order
     handleNumber(event){
-        this.setState({...this.state, number: event.target.value});
+        this.setState({...this.state, orderNr: event.target.value});
     }
     // Handles Value
     handleValue(event){
-        this.setState({...this.state, value: event.target.value});
+        this.setState({...this.state, orderValue: event.target.value});
     }
     // Handles status of order
     handleStatus(event){
@@ -42,6 +42,7 @@ class OrderForm extends React.Component{
         // Send state to request
         Requests.post('orders', this.state)
             .then(res => console.log(res))
+            .catch(err => console.log(err))
     }
 
     render(){
