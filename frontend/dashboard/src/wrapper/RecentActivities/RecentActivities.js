@@ -1,42 +1,35 @@
 import React from 'react';
+import Requests from '../../Request';
 import Activity from './Activity';
+import Header from './Header';
+import LoadMore from './LoadMore';
 
-const RecentActivities = () => {
-  return (
-    <div className="col-xl-4 col-lg-6">
-      <div className="card m-b-20">
-        <div className="card-body">
-          <h4 className="mt-0 header-title mb-4">Recent Activity Feed</h4>
+class RecentActivities extends React.Component {
+  state = {
+    activities: []
+  };
 
-          <ol className="activity-feed mb-0">
-            <Activity date="Jun 63" activity="Responded to need “Freudian Activities”" />
-            <li className="feed-item">
-              <div className="feed-item-list">
-                <span className="date">Jun 24</span>
-                <span className="activity-text">Added an interest “Volunteer Activities”</span>
-              </div>
-            </li>
-            <li className="feed-item">
-              <div className="feed-item-list">
-                <span className="date">Jun 23</span>
-                <span className="activity-text">Joined the group “Boardsmanship Forum”</span>
-              </div>
-            </li>
-            <li className="feed-item">
-              <div className="feed-item-list">
-                <span className="date">Jun 21</span>
-                <span className="activity-text">Responded to need “In-Kind Opportunity”</span>
-              </div>
-            </li>
-          </ol>
+  componentDidMount() {
+    Requests.get('activities')
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
 
-          <div className="text-center">
-            <a href="#" className="btn btn-sm btn-primary">Load More</a>
+  render() {
+    return (
+      <div className="col-xl-4 col-lg-6" >
+        <div className="card m-b-20">
+          <div className="card-body">
+            <Header text="Recent Activity Feed" />
+            <ol className="activity-feed mb-0">
+              <Activity date="Jun 63" activity="Responded to need “Freudian Activities”" />
+            </ol>
+            <LoadMore/>
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default RecentActivities;
