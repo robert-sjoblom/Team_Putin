@@ -23,12 +23,12 @@ class Navbar extends React.Component{
             .catch((err) => console.log(err));
     }
 
-    updateTransactions(){
-        Requests.get('notifications')
-            .then(res => this.setState({...res}))
-            .then(() => console.log(this.state, "hello from navwrapper"))
-            .catch((err) => console.log(err));
-    }
+    // updateTransactions(){
+    //     Requests.get('notifications')
+    //         .then(res => this.setState({...res}))
+    //         .then(() => console.log(this.state, "hello from navwrapper"))
+    //         .catch((err) => console.log(err));
+    // }
 
     render(){
         return (
