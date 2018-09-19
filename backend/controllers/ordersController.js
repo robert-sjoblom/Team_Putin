@@ -1,14 +1,12 @@
 const db = require('mongoose');
 
 const Order = require('../models/order');
+const Notification = require('../models/notification');
 
 exports.getOrdersLength = (req, res) => {
-
   Order.find()
     .exec()
-    .then((orders) => {
-      return res.status(200).json({ length: orders.length });
-    })
+    .then(orders => res.status(200).json({ length: orders.length }))
     .catch(err => res.status(500).json({ error: err }));
 };
 
@@ -29,8 +27,21 @@ exports.placeOrder = (req, res) => {
     orderType,
     orderDate
   });
-  incomingOrder.save()
+  incomingOrder
+    .save()
     .then(() => res.status(201).json({ message: 'New order placed!' }))
+    .then(() => {
+      const newNote = new Notification({
+        _id: new db.Types.ObjectId(),
+        status: 'bg-primary',
+        type: 'mdi-cart-outline',
+        message: 'Order Created',
+        messageDummy: 'Order successfully created'
+      });
+      newNote
+        .save()
+        .then(() => res.status(201).json({ message: 'New notification has been added' }));
+    })
     .catch(err => res.status(500).json({ error: err }));
 };
 
