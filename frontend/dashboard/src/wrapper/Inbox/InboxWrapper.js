@@ -9,7 +9,10 @@ class InboxWrapper extends React.Component {
   // we fetch inbox here
   componentDidMount() {
     Requests.get('messages')
-      .then(response => this.setState({ ...this.state, messages: response.messages }))
+      .then(response => {
+        console.log(response);
+        this.setState({ ...this.state, messages: response.messages })
+      })
       .catch(err => console.log(err));
   }
 
