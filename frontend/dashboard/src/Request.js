@@ -5,13 +5,23 @@ export default class Requests {
   static formatPayload(data, method) {
     // attach any headers around the requests, including tokens
     // we'll deal with this later.
-    console.log(data, method)
-    return null;
+    if(data === null)
+      return {};
+
+    return {
+      method,
+      headers: {
+        'Accept': 'application/json, text/plain */*',
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify(data)
+     };
   }
 
-  static fetch(url, method, payload) {
+  static fetch(url, method, payload = null) {
     return fetch(`${this.api}${url}`, Requests.formatPayload(payload, method))
       .then(response => response.json())
+      .catch(err => console.log(err))
     // .then(response => Requests.formatResponse(response));
   }
 
