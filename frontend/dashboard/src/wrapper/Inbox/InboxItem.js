@@ -1,8 +1,8 @@
 import React from 'react';
 
-const InboxItem = ({author, message, time}) => {
+const InboxItem = ({ key, author, message, time}) => {
   return (
-    <a href="#" className="text-dark">
+    <a href={key} className="text-dark">
       <div className="inbox-item">
         <div className="inbox-item-img float-left mr-3"><img src="assets/images/users/user-1.jpg" className="thumb-md rounded-circle"
           alt="" /></div>

@@ -7,10 +7,7 @@ const app = express();
 // body parser config
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-if (process.env.LOGGING) {
-  app.use(morgan('tiny'));
-}
+app.use(morgan('tiny'));
 
 // CORS Error Handling
 app.use((req, res, next) => {
