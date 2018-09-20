@@ -11,8 +11,6 @@ const userSchema = new db.Schema({
     match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
   },
   password: { type: String, required: true },
-  firstname: { type: String, required: true },
-  lastname: { type: String, required: true },
   created: { type: Date, default: Date.now },
   modified: { type: Date, default: Date.now }
 }, { collection: 'Users' });

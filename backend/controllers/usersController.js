@@ -4,11 +4,6 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
-// User Functions
-
-
-// User Functions
-
 exports.signUp = (req, res) => {
   const {
     email,
@@ -16,7 +11,9 @@ exports.signUp = (req, res) => {
     firstname,
     lastname
   } = req.body;
-
+  console.log('TCL: exports.signUp -> req.body', req.body);
+  res.status(400).json({ message: 'nos yet' });
+  /*
   User.find({ email })
     .exec()
     .then((user) => {
@@ -42,11 +39,15 @@ exports.signUp = (req, res) => {
       });
     })
     .catch(err => res.status(500).json({ error: err }));
+
+  */
 };
 
 exports.login = (req, res) => {
   const { email, password } = req.body;
-
+  console.log('TCL: exports.login -> req.body', req.body);
+  res.status(400).json({ message: 'not yet' });
+  /*
   User.find({ email })
     .exec()
     .then((user) => {
@@ -74,49 +75,5 @@ exports.login = (req, res) => {
       });
     })
     .catch(err => res.status(500).json({ error: err }));
-};
-
-exports.getAllUsers = (req, res) => {
-  User.find()
-    .exec()
-    .then((users) => {
-      res.status(200).json({ users });
-    })
-    .catch(err => res.status(500).json({ error: err }));
-};
-
-exports.getUser = (req, res) => {
-  const { id } = req.params;
-  User.find({ _id: id })
-    .exec()
-    .then((user) => {
-      res.status(200).json({ user });
-    })
-    .catch(err => res.status(500).json({ error: err }));
-};
-
-exports.removeUser = (req, res) => {
-  const { id } = req.params;
-  User.deleteOne({ _id: id })
-    .exec()
-    .then(() => {
-      res.status(200).json({ message: 'ok' });
-    })
-    .catch(err => res.status(500).json({ error: err }));
-};
-
-exports.updateUser = (req, res) => {
-
-  /*
-  const { id } = req.params;
-  const { firstname, lastname, email, password } = req.body;
-
-
-  User.updateOne({ _id: id }, { $set: { firstname, lastname, email,  } })
-    .exec()
-    .then((user) => {
-      res.status(200).json({ user });
-    })
-    .catch(err => res.status(500).json({ error: err }));
-  */
+    */
 };
