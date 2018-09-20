@@ -19,7 +19,7 @@ class OrderWrapper extends React.Component {
                   <tr>
                     <td>#52140300</td>
                     <td>
-                      <img src="assets/images/users/user-2.jpg" alt="user-image" className="thumb-sm mr-2 rounded-circle" />
+                      <img src={require('../../assets/images/users/user-2.jpg')} alt="user-image" className="thumb-sm mr-2 rounded-circle" />
                       Shine Company Catalina
           </td>
                     <td><span className="badge badge-pill badge-success">Delivered</span></td>
@@ -37,7 +37,7 @@ class OrderWrapper extends React.Component {
                   <tr>
                     <td>#96254137</td>
                     <td>
-                      <img src="assets/images/users/user-3.jpg" alt="user-image" className="thumb-sm mr-2 rounded-circle" />
+                      <img src={require('../../assets/images/users/user-3.jpg')} alt="user-image" className="thumb-sm mr-2 rounded-circle" />
                       Trex Outdoor Furniture Cape
           </td>
                     <td><span className="badge badge-pill badge-danger">Cancel</span></td>
@@ -55,7 +55,7 @@ class OrderWrapper extends React.Component {
                   <tr>
                     <td>#12365474</td>
                     <td>
-                      <img src="assets/images/users/user-4.jpg" alt="user-image" className="thumb-sm mr-2 rounded-circle" />
+                      <img src={require('../../assets/images/users/user-4.jpg')} alt="user-image" className="thumb-sm mr-2 rounded-circle" />
                       Oasis Bathroom Teak Corner
           </td>
                     <td><span className="badge badge-pill badge-warning">Shipped</span></td>
@@ -73,7 +73,7 @@ class OrderWrapper extends React.Component {
                   <tr>
                     <td>#85214796</td>
                     <td>
-                      <img src="assets/images/users/user-5.jpg" alt="user-image" className="thumb-sm mr-2 rounded-circle" />
+                      <img src={require('../../assets/images/users/user-5.jpg')} alt="user-image" className="thumb-sm mr-2 rounded-circle" />
                       BeoPlay Speaker
           </td>
                     <td><span className="badge badge-pill badge-success">Delivered</span></td>
@@ -90,7 +90,7 @@ class OrderWrapper extends React.Component {
                   <tr>
                     <td>#12354781</td>
                     <td>
-                      <img src="assets/images/users/user-6.jpg" alt="user-image" className="thumb-sm mr-2 rounded-circle" />
+                      <img src={require('../../assets/images/users/user-6.jpg')} alt="user-image" className="thumb-sm mr-2 rounded-circle" />
                       Riverston Glass Chair
           </td>
                     <td><span className="badge badge-pill badge-success">Delivered</span></td>

@@ -5,7 +5,7 @@ const OrderItem = ({ name, status, amount, date }) => {
         <tr>
             <td>#52140300</td>
             <td>
-                <img src="assets/images/users/user-2.jpg" alt="user-image" className="thumb-sm mr-2 rounded-circle" />
+                <img src={require("../../assets/images/users/user-1.jpg")} alt="user-image" className="thumb-sm mr-2 rounded-circle" />
                 {name}
             </td>
             <td><span className="badge badge-pill badge-success">{status}</span></td>
