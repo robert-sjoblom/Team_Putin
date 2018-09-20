@@ -24,7 +24,8 @@ class App extends Component {
   }
 
   setToken = token => {
-    this.setState({ token });
+    console.log('TCL: App -> token', token);
+    // this.setState({ token });
   }
   render() {
     return (
