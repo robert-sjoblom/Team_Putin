@@ -21,7 +21,6 @@ class Navbar extends React.Component{
         this.setState({...this.state, update: this.props.test})
         Requests.get('notifications')
             .then(res => this.setState({...res}))
-            .then(() => console.log(this.state, "hello from navwrapper"))
             .catch((err) => console.log(err));
     }
 
