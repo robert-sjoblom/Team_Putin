@@ -12,7 +12,6 @@ class ItemSold extends React.Component {
     componentDidMount(){
         Requests.post('orders/getSpecificOrders', {status: ['delivered']})
             .then(res => {
-                console.log(res, "from ItemSold")
                 this.setState({...res})
             })
     }
