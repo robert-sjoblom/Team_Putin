@@ -7,7 +7,10 @@ class ProductSold extends React.Component {
         Requests.post('orders/getSpecificOrders', {
             status: ['delivered']
         })
-       .then(req => this.setState({ ...this.state, length: req.length }))
+       .then(res => {
+        this.setState({ ...this.state, length: res.orders.length })
+        console.log("Här letar vi efter: ", res)
+    }) 
        .catch(err => console.log(err));
     }
 
