@@ -25,7 +25,8 @@ class EmailsSent extends React.Component {
                             </div>
                         </div>
 
-                        <AreaDiagram data={this.props.graphData}></AreaDiagram>
+                        { !this.props.graphData.isLoaded && <div className="dashboard-charts morris-charts"></div> }
+                        { this.props.graphData.isLoaded && <AreaDiagram data={this.props.graphData}></AreaDiagram> }
                     </div>
                 </div>
           </div>

@@ -5,6 +5,7 @@ const orders = require('../controllers/ordersController');
 
 // Unsecured routes
 route.get('/getOrdersLength', orders.getOrdersLength);
+route.get('/getYearlyIncomes', orders.getYearlyIncomes);
 route.post('/getSpecificOrders', orders.getSpecificOrders);
 route.post('/', orders.placeOrder);
 
