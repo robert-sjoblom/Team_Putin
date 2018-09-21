@@ -64,7 +64,7 @@ class OrderForm extends React.Component{
                             OrderStatus
                             <select className="form-control mb-3" onChange={this.handleStatus}>
                                 <option>Delivered</option>
-                                <option>Canceled</option>
+                                <option>Cancelled</option>
                                 <option>Shipped</option>
                             </select>
                             OrderType
