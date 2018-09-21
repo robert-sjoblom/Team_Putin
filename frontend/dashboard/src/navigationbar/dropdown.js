@@ -5,22 +5,6 @@ import Notification from './notifications/notification';
 
 class Dropdown extends React.Component {
 
-    // constructor(props){
-    //     super(props);
-    //     this.state = {
-    //         notes: []
-    //     }
-    // }
-
-    componentDidMount(){
-        console.log(this.props, "hello from componentdidmount");
-        // Requests.get('notifications')
-        //     .then(res => this.setState({...res}))
-        //     .then(() => console.log(this.state))
-        //     .catch((err) => console.log(err));
-    }
-    
-
     render(){
         return (
             <li className="dropdown notification-list">

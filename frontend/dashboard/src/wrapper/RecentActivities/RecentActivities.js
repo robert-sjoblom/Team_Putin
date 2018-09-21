@@ -4,6 +4,7 @@ import ReadMore from '../../components/ReadMore';
 import Requests from '../../Request';
 import Activity from './Activity';
 
+
 class RecentActivities extends React.Component {
   state = {
     activities: [],
