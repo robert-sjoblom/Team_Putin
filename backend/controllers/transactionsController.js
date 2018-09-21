@@ -27,8 +27,7 @@ exports.makeTransaction = (req, res) => {
         messageDummy: 'Transaction successfully created'
       });
       newNote
-        .save()
-        .then(() => res.status(201).json({ message: 'New notification has been added' }));
+        .save();
     })
     .catch(error => res.status(500).json({ message: error }));
 };

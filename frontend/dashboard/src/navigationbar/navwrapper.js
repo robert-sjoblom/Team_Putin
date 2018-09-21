@@ -13,22 +13,23 @@ class Navbar extends React.Component{
         super(props);
         this.state = {
             notes: [],
+            update: ''
         }
     }
 
     componentDidMount(){
+        this.setState({...this.state, update: this.props.test})
         Requests.get('notifications')
             .then(res => this.setState({...res}))
-            .then(() => console.log(this.state, "hello from navwrapper"))
             .catch((err) => console.log(err));
     }
 
-    updateTransactions(){
-        Requests.get('notifications')
-            .then(res => this.setState({...res}))
-            .then(() => console.log(this.state, "hello from navwrapper"))
-            .catch((err) => console.log(err));
-    }
+    // updateTransactions(){
+    //     Requests.get('notifications')
+    //         .then(res => this.setState({...res}))
+    //         .then(() => console.log(this.state, "hello from navwrapper"))
+    //         .catch((err) => console.log(err));
+    // }
 
     render(){
         return (

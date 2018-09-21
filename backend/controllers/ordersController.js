@@ -39,8 +39,7 @@ exports.placeOrder = (req, res) => {
         messageDummy: 'Order successfully created'
       });
       newNote
-        .save()
-        .then(() => res.status(201).json({ message: 'New notification has been added' }));
+        .save();
     })
     .catch(err => res.status(500).json({ error: err }));
 };
