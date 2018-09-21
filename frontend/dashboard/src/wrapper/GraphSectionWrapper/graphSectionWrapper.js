@@ -53,53 +53,36 @@ class GraphSectionWrapper extends React.Component {
             fromOrderDate: monthStartDate
         })
         .then(({ orders }) => {
-            let marketPlace = 0;
-            let totalIncome = 0;
-            let inStoreSalesCount = 0;
-            let mailOrderSalesCount = 0;
-            let downloadSalesCount = 0;
 
-            for(let i = 0; i < orders.length; i++){
-                let type = orders[i].orderType;
-                let value = orders[i].orderValue;
+            // Monthly earnings
+            const monthlyEarnings = orders.reduce(( prev, { orderValue, orderType } ) => {
+                // Keep track of income
+                prev.totalIncome += orderValue;
+                if(orderType === 'in-store') prev.marketPlace += orderValue;
 
                 // Determine and count type
-                switch(type){
-                    case 'in-store':
-                        inStoreSalesCount++;
-                        marketPlace += value;
-                        break;
-                    case 'mail-order':
-                        mailOrderSalesCount++;
-                        break;
-                    case 'download':
-                        downloadSalesCount++;
-                        break;
-                    default:
-                        break;
-                }
+                if(orderType === 'download') prev.graph.data[0].value++;
+                if(orderType === 'in-store') prev.graph.data[1].value++;
+                if(orderType === 'mail-order') prev.graph.data[2].value++;
 
-                // Keep track of total income
-                totalIncome += value;
-            }
-
-            // Save in state
-            this.setState({
-                monthlyEarnings: {
-                    marketPlace,
-                    totalIncome,
-                    graph: {
-                        isLoaded: true,
-                        type: "donut",
-                        data: [
-                            {label: "Download Sales", value: downloadSalesCount},
-                            {label: "In-Store Sales", value: inStoreSalesCount},
-                            {label: "Mail-Order Sales", value: mailOrderSalesCount}
-                        ],
-                        colors: ['#f0f1f4', '#7a6fbe', '#28bbe3'] 
-                    }
+                return prev;
+            }, {
+                marketPlace: 0,
+                totalIncome: 0,
+                graph: {
+                    isLoaded: true,
+                    type: "donut",
+                    data: [
+                        {label: "Download Sales", value: 0},
+                        {label: "In-Store Sales", value: 0},
+                        {label: "Mail-Order Sales", value: 0}
+                    ],
+                    colors: ['#f0f1f4', '#7a6fbe', '#28bbe3'] 
                 }
             });
+
+            // Save in state
+            this.setState({ monthlyEarnings });
         })
         .catch(err => console.log(err));
     }
@@ -108,22 +91,8 @@ class GraphSectionWrapper extends React.Component {
         // Request orders from server
         Requests.get('orders/getYearlyIncomes')
         .then(({ incomes }) => {
-            // // Get value of last year
-            // let totalIncome = incomes.totalIncome[Object.keys(incomes.totalIncome)[Object.keys(incomes.totalIncome).length - 1]];
-            // let marketPlace = incomes.inStore[Object.keys(incomes.inStore)[Object.keys(incomes.inStore).length - 1]];
-            
-            // // Construct graph data
-            // let data = [];
-            // for(let year in incomes.totalIncome){
-            //     const mp = incomes.marketPlace[year] || 0;
-            //     const ti = incomes.totalIncome[year] - mp;
-            //     data.push({
-            //         y: year,
-            //         a: ti,
-            //         b: mp
-            //     });
-            // }
 
+            // Yearly earnings
             const yearlyEarnings = Object.keys(incomes.totalIncome).reduce(( prev, year, index, arr ) => {
                 prev.graph.data.push({
                     y: year,
@@ -150,6 +119,7 @@ class GraphSectionWrapper extends React.Component {
                 }
             });
 
+            // Emails sent
             const emailsSent = Object.keys(incomes.totalIncome).reduce(( prev, year ) => {
                 prev.marketPlace += incomes.inStore[year];
                 prev.totalIncome += incomes.totalIncome[year];
@@ -175,14 +145,11 @@ class GraphSectionWrapper extends React.Component {
                 }
             });
 
-            console.log({yearlyEarnings, emailsSent});
-
             // Save in state
             this.setState({
                 yearlyEarnings,
                 emailsSent
             });
-
         })
         .catch(err => console.log(err));
     }
