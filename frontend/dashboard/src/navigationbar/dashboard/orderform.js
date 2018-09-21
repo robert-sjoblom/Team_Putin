@@ -39,7 +39,6 @@ class OrderForm extends React.Component{
     // Handles the sumbit for Orders and send post to backend
     handleSubmit(event){
         event.preventDefault();
-        // Send state to request
         Requests.post('orders', this.state)
             .then(res => console.log(res))
             .catch(err => console.log(err))
