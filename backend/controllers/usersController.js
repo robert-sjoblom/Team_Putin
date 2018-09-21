@@ -3,17 +3,13 @@ const encrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
+const config = require('../config');
 
 exports.signUp = (req, res) => {
   const {
     email,
     password,
-    firstname,
-    lastname
   } = req.body;
-  console.log('TCL: exports.signUp -> req.body', req.body);
-  res.status(400).json({ message: 'nos yet' });
-  /*
   User.find({ email })
     .exec()
     .then((user) => {
@@ -29,25 +25,25 @@ exports.signUp = (req, res) => {
           _id: new db.Types.ObjectId(),
           email,
           password: hash,
-          firstname,
-          lastname
         });
 
         newUser.save()
-          .then(() => res.status(201).json({ message: 'User successfully created.' }))
+          .then((result) => {
+            const token = jwt.sign(
+              { userId: result._id, email },
+              config.private_secret_key,
+              { expiresIn: '4h' }
+            );
+            return res.status(201).json({ message: 'User successfully created.', token });
+          })
           .catch(innerErr => res.status(500).json({ error: innerErr }));
       });
     })
     .catch(err => res.status(500).json({ error: err }));
-
-  */
 };
 
 exports.login = (req, res) => {
   const { email, password } = req.body;
-  console.log('TCL: exports.login -> req.body', req.body);
-  res.status(400).json({ message: 'not yet' });
-  /*
   User.find({ email })
     .exec()
     .then((user) => {
@@ -62,7 +58,7 @@ exports.login = (req, res) => {
         if (result) {
           const token = jwt.sign(
             { userId: user[0]._id, email },
-            process.env.PRIVATE_SECRET_KEY,
+            config.private_secret_key,
             { expiresIn: '1h' }
           );
           return res.status(200).json({
@@ -70,10 +66,8 @@ exports.login = (req, res) => {
             token
           });
         }
-
         return res.status(401).json({ message: 'Email or password is incorrect.' });
       });
     })
     .catch(err => res.status(500).json({ error: err }));
-    */
 };
