@@ -6,7 +6,16 @@ exports.getActivities = (req, res) => {
   Activity.find()
     .exec()
     .then((activities) => {
-      res.status(200).json({ count: activities.length, activities });
+      const formattedActivities = activities.map(({ _id, description, date }) => {
+        // we want formatted dates
+        const month = date.toLocaleString('en-us', { month: 'short' });
+        return {
+          _id,
+          description,
+          date: `${month} ${date.getDate()}`
+        };
+      });
+      res.status(200).json({ activities: formattedActivities });
     })
     .catch(err => res.status(500).json({ error: err }));
 };
