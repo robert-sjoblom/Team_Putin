@@ -37,7 +37,7 @@ describe('Activity list API tests', () => {
         .end(function (err, res) { //eslint-disable-line
           expect(200);
           expect(res.body).to.be.an('object');
-          expect(res.body).to.have.keys('count', 'activities');
+          expect(res.body).to.have.keys('activities');
           done();
         });
     });
@@ -47,14 +47,6 @@ describe('Activity list API tests', () => {
         .end(function (err, res) { //eslint-disable-line
           expect(res.body.activities).to.have.length(0);
           expect(res.body.activities).to.be.an('array');
-          done();
-        });
-    });
-
-    it('should have a count key with value 0', (done) => {
-      request.get('api/activities')
-        .end(function (err, res) { //eslint-disable-line
-          expect(res.body.count).to.equal(0);
           done();
         });
     });
@@ -74,7 +66,7 @@ describe('Activity list API tests', () => {
         .end(function (err, res) { //eslint-disable-line
           expect(200);
           expect(res.body).to.be.an('object');
-          expect(res.body).to.have.keys('count', 'activities');
+          expect(res.body).to.have.keys('activities');
           done();
         });
     });
@@ -84,14 +76,6 @@ describe('Activity list API tests', () => {
         .end(function (err, res) { //eslint-disable-line
           expect(res.body.activities).to.have.length(1);
           expect(res.body.activities).to.be.an('array');
-          done();
-        });
-    });
-
-    it('should have a count key with value 1', (done) => {
-      request.get('api/activities')
-        .end(function (err, res) { //eslint-disable-line
-          expect(res.body.count).to.equal(1);
           done();
         });
     });
