@@ -7,10 +7,7 @@ const app = express();
 // body parser config
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-if (process.env.LOGGING) {
-  app.use(morgan('tiny'));
-}
+app.use(morgan('tiny'));
 
 // CORS Error Handling
 app.use((req, res, next) => {
@@ -32,12 +29,13 @@ const orderRoutes = require('./routes/orders.js');
 const messagesRoutes = require('./routes/messages.js');
 const transactionsRoutes = require('./routes/transactions.js');
 const notificationRoutes = require('./routes/notifications.js');
-
+const activityRoutes = require('./routes/activities');
 
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/messages', messagesRoutes);
 app.use('/api/transactions', transactionsRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/activities', activityRoutes);
 
 module.exports = app;

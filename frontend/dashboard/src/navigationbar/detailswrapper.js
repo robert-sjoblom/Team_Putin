@@ -4,18 +4,6 @@ import ItemSold from './itemsold-info';
 
 
 class DetailsWrapper extends React.Component {
-    
-    itemSold;
-
-    componentDidMount(){
-        fetch('http://localhost:3001/api/balance')
-            .then(res => {
-                this.itemSold = res
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
 
     render(){
         return (

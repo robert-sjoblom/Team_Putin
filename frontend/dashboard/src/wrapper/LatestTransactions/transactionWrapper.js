@@ -17,7 +17,7 @@ render() {
                                     <TransactionItem name="Juan Deag" status="Confirmed" amount="14,650$" date="10/12/2044"></TransactionItem>
                                 <tr>
                                     <td>
-                                        <img src="assets/images/users/user-3.jpg" alt="user-image" className="thumb-sm rounded-circle mr-2" />
+                                        <img src={require("../../assets/images/users/user-3.jpg")} alt="user-image" className="thumb-sm rounded-circle mr-2" />
                                         Mathias N. Klausen
               </td>
                                     <td><i className="mdi mdi-checkbox-blank-circle text-warning"></i> Waiting payment</td>
@@ -36,7 +36,7 @@ render() {
 
                                 <tr>
                                     <td>
-                                        <img src="assets/images/users/user-4.jpg" alt="user-image" className="thumb-sm rounded-circle mr-2" />
+                                        <img src={require("../../assets/images/users/user-4.jpg")} alt="user-image" className="thumb-sm rounded-circle mr-2" />
                                         Nikolaj S. Henriksen
               </td>
                                     <td><i className="mdi mdi-checkbox-blank-circle text-success"></i> Confirm</td>
@@ -55,7 +55,7 @@ render() {
 
                                 <tr>
                                     <td>
-                                        <img src="assets/images/users/user-5.jpg" alt="user-image" className="thumb-sm rounded-circle mr-2" />
+                                        <img src={require("../../assets/images/users/user-5.jpg")} alt="user-image" className="thumb-sm rounded-circle mr-2" />
                                         Lasse C. Overgaard
               </td>
                                     <td><i className="mdi mdi-checkbox-blank-circle text-danger"></i> Payment expired</td>
@@ -74,7 +74,7 @@ render() {
 
                                 <tr>
                                     <td>
-                                        <img src="assets/images/users/user-6.jpg" alt="user-image" className="thumb-sm rounded-circle mr-2" />
+                                        <img src={require("../../assets/images/users/user-6.jpg")} alt="user-image" className="thumb-sm rounded-circle mr-2" />
                                         Kasper S. Jessen
               </td>
                                     <td><i className="mdi mdi-checkbox-blank-circle text-success"></i> Confirm</td>
