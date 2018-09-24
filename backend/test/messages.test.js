@@ -10,10 +10,16 @@ const { expect } = chai;
 const Message = require('../models/message');
 const config = require('../config');
 
+const user = {
+  email: 'dsadsa@dsa.com',
+  password: 'dsadsa',
+};
 
 describe('Messages list API integration tests', () => {
   // COPY BEFORE + let listener FOR YOUR OWN TESTS
   let listener;
+  let token;
+
   before((done) => {
     // Node JS Web Server
     listener = http.createServer(app).listen(config.port, () => {
@@ -23,10 +29,16 @@ describe('Messages list API integration tests', () => {
     db.connect(config.db, { useNewUrlParser: true })
       .then(() => {
         console.log(`MongoDB Connection to ${config.db} Online`);
-        done();
       })
       .catch(err => console.log(err));
     db.set('useCreateIndex', true);
+
+    request.post('api/users/signup')
+      .send(user)
+      .end(function (err, res) { //eslint-disable-line
+        token = res.body.token; //eslint-disable-line
+        done();
+      });
   });
 
   describe('Database Tests', () => {
@@ -65,18 +77,25 @@ describe('Messages list API integration tests', () => {
   });
 
   describe('#GET /messages', () => { //eslint-disable-line
-    it('should get all the messages', (done) => {
+    it('should not get any messages without auth', (done) => {
       request.get('api/messages')
         .end(function (err, res) { //eslint-disable-line
-          expect(200);
-          expect(res.body).to.be.an('object');
-          expect(res.body).to.have.keys('count', 'messages');
+          expect(401);
           done();
         });
     });
 
+    it('should get all messages', (done) => {
+      request.get('api/messages')
+        .set('Authorization', token)
+        .end(function (err, res) { //eslint-disable-line
+          expect(401);
+          done();
+        });
+    });
     it('should have a message array of length 1', (done) => {
       request.get('api/messages')
+        .set('Authorization', token)
         .end(function (err, res) { //eslint-disable-line
           expect(res.body.messages).to.have.length(1);
           expect(res.body.messages).to.be.an('array');
@@ -86,6 +105,7 @@ describe('Messages list API integration tests', () => {
 
     it('should have a count key with value 1', (done) => {
       request.get('api/messages')
+        .set('Authorization', token)
         .end(function (err, res) { //eslint-disable-line
           expect(res.body.count).to.equal(1);
           done();

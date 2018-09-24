@@ -1,8 +1,9 @@
+// @ts-nocheck
 import React from 'react';
 
-const InboxItem = ({ key, author, message, time}) => {
+const InboxItem = ({ id, author, message, time}) => {
   return (
-    <a href={key} className="text-dark">
+    <a href={id} className="text-dark">
       <div className="inbox-item">
         <div className="inbox-item-img float-left mr-3"><img src={require('../../assets/images/users/user-1.jpg')} className="thumb-md rounded-circle"
           alt="" /></div>
