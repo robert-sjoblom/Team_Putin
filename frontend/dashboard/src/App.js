@@ -24,15 +24,16 @@ class App extends Component {
   }
 
   setToken = token => {
-    console.log('TCL: App -> token', token);
-    // this.setState({ token });
+    this.setState({ token }, () => {
+      sessionStorage.setItem('token', this.state.token);
+    });
   }
   render() {
     return (
       <Switch>
         <Route exact path='/' render={props => {
-          return !this.state.token ? <Login {...props} setToken={this.setToken} /> : <Dashboard {...props} />
-        }} />
+          return this.state.token ? <Dashboard {...props} /> : <Login {...props} setToken={this.setToken} /> 
+        }}/>
       </Switch>
     )
   }

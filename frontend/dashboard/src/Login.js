@@ -5,14 +5,11 @@ class Login extends React.Component {
   state = {
     email: '',
     password: '',
+    status: '',
     newUser: false
   };
 
   setToken = this.props.setToken;
-
-  componentDidMount() {
-    this.setToken('hello');
-  }
 
   onChange = e => {
     if (e.target.id === 'newUser') {
@@ -40,22 +37,27 @@ class Login extends React.Component {
     }
     const api = 'http://localhost:3001/api/users/';
     const url = this.state.newUser ? 'signup' : 'login'
-    console.log(url);
     fetch(`${api}${url}`, options)
-      .then((response) => {
-        if (!response.ok) throw new Error(response.status);
-        else return response.json();
-      })
+      .then((response) => response.json())
       .then(text => {
-        console.log('TCL: Login -> text', text);
+        if (text.token) {
+          this.setToken(text.token)
+        } else {
+          this.setState({ status: text.message || 'Something went wrong. Try again later!' })
+        }
       })
-      .catch(error => console.log(error))
+      .catch(() => {
+        this.setState({ status: 'Something went wrong, please try again later! ' });
+      });
   }
 
   render() {
     return (
       <div className="wrapper">
         <div className="container-fluid">
+          <div className="row justify-content-center">
+            <h5>{this.state.status}</h5>
+          </div>
           <div className="row justify-content-center">
             <form onSubmit={this.submit}>
               <div className="form-group">
@@ -66,9 +68,6 @@ class Login extends React.Component {
                   id="email"
                   aria-describedby="emailHelp"
                   placeholder="Enter email"
-
-                  value="dsa@dsa"
-
                   required
                   onChange={this.onChange}
                 />
@@ -83,9 +82,6 @@ class Login extends React.Component {
                 <input
                   type="text"
                   className="form-control"
-
-                  value="dsadsa"
-
                   id="password"
                   placeholder="Password"
                   onChange={this.onChange}

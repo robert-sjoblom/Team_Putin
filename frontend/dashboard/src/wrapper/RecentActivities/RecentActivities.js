@@ -8,22 +8,27 @@ import Activity from './Activity';
 class RecentActivities extends React.Component {
   state = {
     activities: [],
-    moreActivities: []
+    moreActivities: [],
+    errorMessage: ''
   };
 
   componentDidMount() {
     Requests.get('activities')
       .then(response => {
         // If we have more than 5 activities, save the rest in moreActivities
-        const newState = response.activities.reduce((prev, cur, index) => {
-          if (index < 5) {
-            prev["activities"].push(cur)
-          } else {
-            prev["moreActivities"].push(cur)
-          }
-          return prev;
-        }, this.state)
-        this.setState(newState);
+        if (response.message) {
+          this.setState({ errorMessage: response.message })
+        } else {
+          const newState = response.activities.reduce((prev, cur, index) => {
+            if (index < 5) {
+              prev["activities"].push(cur)
+            } else {
+              prev["moreActivities"].push(cur)
+            }
+            return prev;
+          }, this.state)
+          this.setState(newState);
+        }
       })
       .catch(err => console.log(err));
   }
@@ -38,18 +43,20 @@ class RecentActivities extends React.Component {
   }
 
   render() {
+    const toRender = this.state.errorMessage ||
+      <ol className="activity-feed mb-0">
+        {this.state.activities.map(act => <Activity
+          date={act.date}
+          activity={act.description}
+          key={act._id} />)}
+      </ol>
     return (
       <div className="col-xl-4 col-lg-6">
         <div className="card m-b-20">
           <div className="card-body">
             <Header classes={["mt-0", "header-title", "mb-4"]} title="Recent Activity Feed" />
-            <ol className="activity-feed mb-0">
-              {this.state.activities.map(act => <Activity
-                date={act.date}
-                activity={act.description}
-                key={act._id} />)}
-            </ol>
-            <ReadMore more={this.readMore}/>
+            {toRender}
+            <ReadMore more={this.readMore} />
           </div>
         </div>
       </div>
