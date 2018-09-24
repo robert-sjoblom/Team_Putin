@@ -6,9 +6,10 @@ class UserProfile extends React.Component {
 
     state = {loggedOut: false};
 
-    logOut(){
-        console.log("hej")
+    componentDidMount() {
+        console.log(this.props);
     }
+    logOut = this.props.logout;
 
     render(){
         return (

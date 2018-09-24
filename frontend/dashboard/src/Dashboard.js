@@ -5,14 +5,14 @@ import TransactionForm from './navigationbar/dashboard/transactionform';
 import Navbar from './navigationbar/navwrapper';
 import Wrapper from './wrapper/Wrapper';
 
-const Dashboard = () => {
+const Dashboard = ({ logout }) => {
   return (
     <React.Fragment>
-      <OrderForm/>
+      <OrderForm />
       <TransactionForm></TransactionForm>
-      <Navbar/>
-      <Wrapper/>
-      <Footer/>
+      <Navbar logout={logout} />
+      <Wrapper />
+      <Footer />
     </React.Fragment>
   )
 }

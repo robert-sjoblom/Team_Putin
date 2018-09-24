@@ -8,31 +8,26 @@ import Login from './Login';
 
 
 class App extends Component {
-  // constructor() {
-  //   super();
-  //   window.Raphael = Raphael;
-  // }
   state = {
     token: false
   }
   
-  componentDidMount() {
-    // when we start up, we look for a localStorage key
-    // if key exists, we load it into token
-    // otherwise we don't
-    // TO BE IMPLEMENTED
-  }
-
   setToken = token => {
     this.setState({ token }, () => {
       sessionStorage.setItem('token', this.state.token);
     });
   }
+
+  removeToken = () => {
+    this.setState({ token: false }, () => {
+      sessionStorage.removeItem('token');
+    })
+  }
   render() {
     return (
       <Switch>
         <Route exact path='/' render={props => {
-          return this.state.token ? <Dashboard {...props} /> : <Login {...props} setToken={this.setToken} /> 
+          return this.state.token ? <Dashboard {...props} logout={this.removeToken} /> : <Login {...props} setToken={this.setToken} /> 
         }}/>
       </Switch>
     )
