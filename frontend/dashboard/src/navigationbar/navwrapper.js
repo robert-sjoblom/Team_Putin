@@ -22,8 +22,6 @@ class Navbar extends React.Component{
         Requests.get('notifications')
             .then(res => this.setState({...res}))
             .catch((err) => console.log(err));
-        
-        console.log(this.props);
     }
 
     // updateTransactions(){
