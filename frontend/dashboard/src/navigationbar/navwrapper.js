@@ -1,11 +1,11 @@
 import React from 'react';
+import Requests from '../Request';
+import DashboardHeader from './dashboardHeader';
+import DetailsWrapper from './detailswrapper';
+import Dropdown from './dropdown';
 import Logo from './logo';
 import Search from './search';
-import Dropdown from './dropdown';
 import UserProfile from './userProfile';
-import DetailsWrapper from './detailswrapper';
-import DashboardHeader from './dashboardHeader';
-import Requests from '../Request';
 
 class Navbar extends React.Component{
 
@@ -22,6 +22,8 @@ class Navbar extends React.Component{
         Requests.get('notifications')
             .then(res => this.setState({...res}))
             .catch((err) => console.log(err));
+        
+        console.log(this.props);
     }
 
     // updateTransactions(){
@@ -41,7 +43,7 @@ class Navbar extends React.Component{
                         <ul className="float-right list-unstyled mb-0 ">
                             <Search></Search>
                             <Dropdown notes={this.state.notes}></Dropdown>
-                            <UserProfile></UserProfile>
+                            <UserProfile logout={this.props.logout}></UserProfile>
                             {/* not used */}
                             <li className="menu-item">
                                 
