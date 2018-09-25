@@ -5,58 +5,43 @@ import EmailsSent from './emailsSent';
 
 class GraphSectionWrapper extends React.Component {
 
-    donutData = { 
-        type: "donut",
-        data: [
-            {label: "Download Sales", value: 12},
-            {label: "In-Store Sales", value: 30},
-            {label: "Mail-Order Sales", value: 20}
-        ],
-        colors: ['#f0f1f4', '#7a6fbe', '#28bbe3'] 
-    };
-    areaData = { 
-        type: "area",
-        data: [
-            {y: '2011', a: 0, b: 0, c:0},
-            {y: '2012', a: 150, b: 45, c:15},
-            {y: '2013', a: 60, b: 150, c:195},
-            {y: '2014', a: 180, b: 36, c:21},
-            {y: '2015', a: 90, b: 60, c:360},
-            {y: '2016', a: 75, b: 240, c:120},
-            {y: '2017', a: 30, b: 30, c:30}
-        ],
-        x: 'y',
-        y: ['a', 'b', 'c'],
-        labels: ['Series A', 'Series B', 'Series C'],
-        colors: ['#ccc', '#7a6fbe', '#28bbe3'], 
-    };
-    barData = { 
-        type: "bar",
-        data: [
-            { y: '2005', a: 45, b: 180},
-            { y: '2006', a: 75,  b: 65},
-            { y: '2007', a: 100, b: 90},
-            { y: '2008', a: 75,  b: 65},
-            { y: '2009', a: 100, b: 90},
-            { y: '2010', a: 75,  b: 65},
-            { y: '2011', a: 50,  b: 40},
-            { y: '2012', a: 75,  b: 65},
-            { y: '2013', a: 50,  b: 40},
-            { y: '2014', a: 75,  b: 65},
-            { y: '2015', a: 100, b: 90},
-            { y: '2016', a: 80, b: 65}
-        ],
-        x: 'y',
-        y: ['a', 'b'],
-        labels: ['Series A', 'Series B'],
-        colors: ['#28bbe3','#f0f1f4']
-     };
+    state = {
+        // Left box
+        monthlyEarnings: {
+            marketPlace: 0,
+            totalIncome: 0,
+            graph: {
+                isLoaded: false
+            }
+        },
 
+        // Middle box
+        emailsSent: {
+            marketPlace: 0,
+            totalIncome: 0,
+            lastMonth: 0,
+            graph: { 
+                isLoaded: false
+            }
+        },
+
+        // Right box
+        yearlyEarnings: {
+            marketPlace: 0,
+            totalIncome: 0,
+            graph: { 
+                isLoaded: false
+            }
+        }
+    };
+    
     componentDidMount(){
-       this.getAndRenderCurrentMonthOrders();
+       this.getMonthlyEarnings();
+       
+       this.getYearlyEarnings();
     }
 
-    getAndRenderCurrentMonthOrders(){
+    getMonthlyEarnings(){
         // Calculate start date of current month
         let monthStartDate = new Date();
         monthStartDate.setDate(1);
@@ -67,13 +52,104 @@ class GraphSectionWrapper extends React.Component {
             status: ['shipped', 'delivered'],
             fromOrderDate: monthStartDate
         })
-        .then(res => {
-            let orders = res.orders;
+        .then(({ orders }) => {
 
+            // Monthly earnings
+            const monthlyEarnings = orders.reduce(( prev, { orderValue, orderType } ) => {
+                // Keep track of income
+                prev.totalIncome += orderValue;
+                if(orderType === 'in-store') prev.marketPlace += orderValue;
 
-            // for(let i = 0; i < orders.length; i++){
-                
-            // }
+                // Determine and count type
+                if(orderType === 'download') prev.graph.data[0].value++;
+                if(orderType === 'in-store') prev.graph.data[1].value++;
+                if(orderType === 'mail-order') prev.graph.data[2].value++;
+
+                return prev;
+            }, {
+                marketPlace: 0,
+                totalIncome: 0,
+                graph: {
+                    isLoaded: true,
+                    type: "donut",
+                    data: [
+                        {label: "Download Sales", value: 0},
+                        {label: "In-Store Sales", value: 0},
+                        {label: "Mail-Order Sales", value: 0}
+                    ],
+                    colors: ['#f0f1f4', '#7a6fbe', '#28bbe3'] 
+                }
+            });
+
+            // Save in state
+            this.setState({ monthlyEarnings });
+        })
+        .catch(err => console.log(err));
+    }
+    
+    getYearlyEarnings(){
+        // Request orders from server
+        Requests.get('orders/getYearlyIncomes')
+        .then(({ incomes }) => {
+
+            // Yearly earnings
+            const yearlyEarnings = Object.keys(incomes.totalIncome).reduce(( prev, year, index, arr ) => {
+                prev.graph.data.push({
+                    y: year,
+                    a: incomes.totalIncome[year],
+                    b: incomes.inStore[year]
+                });
+                // If last year
+                if(index === arr.length - 1){
+                    prev.marketPlace = incomes.inStore[year];
+                    prev.totalIncome = incomes.totalIncome[year];
+                }
+                return prev;
+            }, {
+                marketPlace: 0,
+                totalIncome: 0,
+                graph: {
+                    isLoaded: true,
+                    type: "bar",
+                    data: [],
+                    x: 'y',
+                    y: ['a', 'b'],
+                    labels: ['Total income', 'Market place'],
+                    colors: ['#28bbe3','#f0f1f4']
+                }
+            });
+
+            // Emails sent
+            const emailsSent = Object.keys(incomes.totalIncome).reduce(( prev, year ) => {
+                prev.marketPlace += incomes.inStore[year];
+                prev.totalIncome += incomes.totalIncome[year];
+                prev.graph.data.push({
+                    y: year,
+                    a: incomes.inStore[year],
+                    b: incomes.download[year],
+                    c: incomes.mailOrder[year]
+                });
+                return prev;
+            }, {
+                marketPlace: 0,
+                totalIncome: 0,
+                lastMonth: 0,
+                graph: {
+                    isLoaded: true,
+                    type: "area",
+                    data: [],
+                    x: 'y',
+                    y: ['a', 'b', 'c'],
+                    labels: ['In store', 'Download', 'Mail-order'],
+                    colors: ['#ccc', '#7a6fbe', '#28bbe3']
+                }
+            });
+
+            // Save in state
+            this.setState({
+                yearlyEarnings,
+                emailsSent
+            });
         })
         .catch(err => console.log(err));
     }
@@ -82,18 +158,18 @@ class GraphSectionWrapper extends React.Component {
         return ( 
             <React.Fragment>
                 <MonthlyEarningsWrapper 
-                    marketPlace="56241" 
-                    totalIncome="23651" 
-                    graphData={this.donutData}></MonthlyEarningsWrapper>
+                    marketPlace={this.state.monthlyEarnings.marketPlace} 
+                    totalIncome={this.state.monthlyEarnings.totalIncome}
+                    graphData={this.state.monthlyEarnings.graph}></MonthlyEarningsWrapper>
                 <EmailsSent 
-                    marketPlace="89425" 
-                    totalIncome="56210" 
-                    lastMonth="8974" 
-                    graphData={this.areaData}></EmailsSent>
+                    marketPlace={this.state.emailsSent.marketPlace} 
+                    totalIncome={this.state.emailsSent.totalIncome}
+                    lastMonth={this.state.emailsSent.lastMonth}
+                    graphData={this.state.emailsSent.graph}></EmailsSent>
                 <MonthlyEarningsWrapper 
-                    marketPlace="2548" 
-                    totalIncome="6985" 
-                    graphData={this.barData}></MonthlyEarningsWrapper>
+                    marketPlace={this.state.yearlyEarnings.marketPlace} 
+                    totalIncome={this.state.yearlyEarnings.totalIncome}
+                    graphData={this.state.yearlyEarnings.graph}></MonthlyEarningsWrapper>
             </React.Fragment>
         )
     }
