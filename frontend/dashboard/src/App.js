@@ -11,11 +11,10 @@ class App extends Component {
   state = {
     token: false
   }
-  
+
   setToken = token => {
-    this.setState({ token }, () => {
-      sessionStorage.setItem('token', this.state.token);
-    });
+    sessionStorage.setItem('token', token);
+    this.setState({ token });
   }
 
   removeToken = () => {
@@ -27,8 +26,8 @@ class App extends Component {
     return (
       <Switch>
         <Route exact path='/' render={props => {
-          return this.state.token ? <Dashboard {...props} logout={this.removeToken} /> : <Login {...props} setToken={this.setToken} /> 
-        }}/>
+          return this.state.token ? <Dashboard {...props} logout={this.removeToken} /> : <Login {...props} setToken={this.setToken} />
+        }} />
       </Switch>
     )
   }
