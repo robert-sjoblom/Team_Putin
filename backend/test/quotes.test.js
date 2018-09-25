@@ -17,7 +17,7 @@ const user = {
   password: 'dsadsa',
 };
 
-describe('Activity list API tests', () => {
+describe('Quote function API tests', () => {
   // COPY BEFORE + let listener FOR YOUR OWN TESTS
   let listener;
   let token;
@@ -43,17 +43,44 @@ describe('Activity list API tests', () => {
       });
   });
 
-  describe('#GET /activities', () => { //eslint-disable-line
-    it('should not get any activities without token', (done) => {
-      request.get('api/activities')
+  describe('#POST /quotes', () => {
+    const inspiringQuote = {
+      message: 'This is an inspirational quote',
+      name: 'Bob Belcher',
+      position: 'CEO'
+    };
+
+    it('should not be able to post quotes without token', (done) => {
+      request.post('api/quotes')
+        .send(inspiringQuote)
+        .end(function (err, res) { //eslint-disable-line 
+          expect(res.status).to.equal(401);
+          done();
+        });
+    });
+
+    it('should be able to post quotes with token', (done) => {
+      request.post('api/quotes')
+        .set('Authorization', token)
+        .send(inspiringQuote)
+        .end(function (err, res) { //eslint-disable-line 
+          expect(res.status).to.equal(201);
+          done();
+        });
+    });
+  });
+
+  describe('#GET /quotes', () => { //eslint-disable-line
+    it('should not get any quotes without token', (done) => {
+      request.get('api/quotes')
         .end(function (err, res) { //eslint-disable-line
           expect(res.status).to.equal(401);
           done();
         });
     });
 
-    it('should get all activities with token', (done) => {
-      request.get('api/activities')
+    it('should get a quote with token', (done) => {
+      request.get('api/quotes')
         .set('Authorization', token)
         .end(function (err, res) { //eslint-disable-line
           expect(res.status).to.equal(200);
@@ -61,54 +88,38 @@ describe('Activity list API tests', () => {
         });
     });
 
-    it('should have an activities array of length 0', (done) => {
-      request.get('api/activities')
+    it('should have a key named quote', (done) => {
+      request.get('api/quotes')
         .set('Authorization', token)
         .end(function (err, res) { //eslint-disable-line
-          expect(res.body.activities).to.have.length(0);
-          expect(res.body.activities).to.be.an('array');
-          done();
-        });
-    });
-  });
-
-  describe('#POST /activities', () => { //eslint-disable-line
-    it('should respond with 401 when creating an unauthorized Activity', function (done) { //eslint-disable-line
-      request.post('api/activities')
-        .send(activityToAdd)
-        .end(function (err, res) { //eslint-disable-line
-          expect(res.status).to.equal(401);
+          expect(res.body).to.have.key('quote');
           done();
         });
     });
 
-    it('should respond with 201 when creating a new Activity', function (done) { //eslint-disable-line
-      request.post('api/activities')
+    it('quote should be an object', (done) => {
+      request.get('api/quotes')
         .set('Authorization', token)
-        .send(activityToAdd)
-        .expect(201, done);
-    });
-  });
-
-  describe('#GET /activities', () => { //eslint-disable-line
-    it('should get all the activities', (done) => {
-      request.get('api/activities')
-        .set('Authorization', token)
-        .end(function (err, res) { //eslint-disable-line
-          expect(200);
-          expect(res.body).to.be.an('object');
-          expect(res.body).to.have.keys('activities');
+        .end(function (err, res) { //eslint-disable-line 
+          expect(res.body.quote).to.be.an('object');
           done();
         });
     });
 
-    it('should have an activities array of length 1', (done) => {
-      request.get('api/activities')
+    it('quote should have correct keys', (done) => {
+      request.get('api/quotes')
+        .set('Authorization', token)
+        .end(function (err, res) { //eslint-disable-line 
+          expect(res.body.quote).to.have.keys('message', 'name', 'position');
+          done();
+        });
+    });
+
+    it('quote message should be', (done) => {
+      request.get('api/quotes')
         .set('Authorization', token)
         .end(function (err, res) { //eslint-disable-line
-          expect(res.body.activities).to.have.length(1);
-          expect(res.body.activities).to.be.an('array');
-          done();
+          expect(res.body.quote.message).to.equal('This is an inspirational quote');
         });
     });
   });

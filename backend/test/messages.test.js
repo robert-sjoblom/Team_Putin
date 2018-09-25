@@ -80,7 +80,7 @@ describe('Messages list API integration tests', () => {
     it('should not get any messages without auth', (done) => {
       request.get('api/messages')
         .end(function (err, res) { //eslint-disable-line
-          expect(401);
+          expect(res.status).to.equal(401);
           done();
         });
     });
@@ -89,7 +89,7 @@ describe('Messages list API integration tests', () => {
       request.get('api/messages')
         .set('Authorization', token)
         .end(function (err, res) { //eslint-disable-line
-          expect(401);
+          expect(res.status).to.equal(200);
           done();
         });
     });

@@ -30,6 +30,7 @@ const messagesRoutes = require('./routes/messages.js');
 const transactionsRoutes = require('./routes/transactions.js');
 const notificationRoutes = require('./routes/notifications.js');
 const activityRoutes = require('./routes/activities');
+const quoteRoutes = require('./routes/quotes');
 
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
@@ -37,5 +38,6 @@ app.use('/api/messages', messagesRoutes);
 app.use('/api/transactions', transactionsRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/activities', activityRoutes);
+app.use('/api/quotes', quoteRoutes);
 
 module.exports = app;
