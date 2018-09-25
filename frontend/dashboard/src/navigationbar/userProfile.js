@@ -5,10 +5,7 @@ import LogOut from './logout';
 class UserProfile extends React.Component {
 
     state = {loggedOut: false};
-
-    logOut(){
-        console.log("hej")
-    }
+    logOut = this.props.logout;
 
     render(){
         return (

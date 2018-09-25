@@ -1,21 +1,25 @@
 
 export default class Requests {
   static api = 'http://localhost:3001/api/';
+  static token = sessionStorage.getItem('token');
 
   static formatPayload(data, method) {
     // attach any headers around the requests, including tokens
     // we'll deal with this later.
-    if(data === null)
-      return {};
+    // console.log(this.token);
+    const headers = {
+      'Accept': 'application/json, text/plain */*',
+      'Content-Type': 'application/json',
+      'Authorization': this.token
+    };
 
-    return {
-      method,
-      headers: {
-        'Accept': 'application/json, text/plain */*',
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify(data)
-     };
+    return data ? { method, headers, body: JSON.stringify(data) } : { method, headers };
+
+    // return {
+    //   method,
+    //   headers,
+    //   body: JSON.stringify(data)
+    // };
   }
 
   static fetch(url, method, payload = null) {

@@ -50,6 +50,7 @@ class InboxWrapper extends React.Component {
                   message={msg.message}
                   time={msg.receivedAtTime}
                   key={msg._id}
+                  id={msg._id}
                 />)
               }
             </div>
