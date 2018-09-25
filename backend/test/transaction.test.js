@@ -11,10 +11,15 @@ const app = require('../app');
 const { expect } = chai;
 
 const config = require('../config');
+const user = {
+  email: 'dsadsa@dsa.com',
+  password: 'dsadsa',
+};
 
 
 describe('Transaction API Test', () => {
   let listener;
+  let token;
   before((done) => {
     // Node JS Web Server
     listener = http.createServer(app).listen(config.port, () => {
@@ -24,28 +29,36 @@ describe('Transaction API Test', () => {
     db.connect(config.db, { useNewUrlParser: true })
       .then(() => {
         console.log(`MongoDB Connection to ${config.db} Online`);
-        done();
       })
       .catch(err => console.log(err));
     db.set('useCreateIndex', true);
+    request.post('api/users/signup')
+      .send(user)
+      .end(function (err, res) {
+        token = res.body.token; 
+        done();
+      });
   });
+  
 
   describe('Get transactions', () => {
     it('get all transactions', (done) => {
-        request.get('api/transactions') 
-            .end(function(err, res){
-                expect(200);
-                expect(res.body).to.be.an('object'); 
-                done(); 
-            });
+      request.get('api/transactions')
+        .set('Authorization', token)
+        .end(function(err, res){
+            expect(res.status).to.equal(200);
+            expect(res.body).to.be.an('object'); 
+            done(); 
+        });
     });
   });
   describe('Should be able to post transaction', () => {
       it('should post a transaction', (done) => {
         request.post('api/transactions')
+            .set('Authorization', token)
             .send({ from: 'Koof', amount: '300', status: 'completed' })
             .end(function(err, res){
-                expect(200);
+                expect(res.status).to.equal(201);
                 done();
             })
       })

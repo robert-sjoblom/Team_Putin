@@ -11,10 +11,14 @@ const app = require('../app');
 const { expect } = chai;
 
 const config = require('../config');
+const user = {
+  email: 'dsadsa@dsa.com',
+  password: 'dsadsa',
+};
 
-
-describe('Transaction API Test', () => {
+describe('Notification API Test', () => {
   let listener;
+  let token;
   before((done) => {
     // Node JS Web Server
     listener = http.createServer(app).listen(config.port, () => {
@@ -24,31 +28,47 @@ describe('Transaction API Test', () => {
     db.connect(config.db, { useNewUrlParser: true })
       .then(() => {
         console.log(`MongoDB Connection to ${config.db} Online`);
-        done();
       })
       .catch(err => console.log(err));
     db.set('useCreateIndex', true);
+    request.post('api/users/signup')
+      .send(user)
+      .end(function (err, res) {
+        token = res.body.token; 
+        done();
+      });
   });
   describe('get all notifications', () => {
-      it('should get all notifications', (done) => {
-          request.get('api/notifications')
-            .end(function(err,res) {
-                expect(200)
-                expect(res.body).to.be.an('object'); 
-                done();
-            })
-      })
-  })
+    it('should not get notifications with no auth', (done) => {
+      request.get('api/')
+        .end(function(err, res){
+          expect(res.status).to.equal(404)
+          done();
+        })
+    });
+    it('should get all notifications', (done) => {
+      request.get('api/notifications')
+        .set('Authorization', token)
+        .end(function(err,res) {
+            expect(res.status).to.equal(200)
+            expect(res.body).to.be.an('object'); 
+            done();
+        });
+    });
+  });
   describe('GET notifications', () => {
-      it('should be an object', (done) => {
-          request.get('api/notifications')
-            .end(function(err, res){
-                expect(200)
-                expect(res.body).to.be.an('object')
-                done();
-            })
-      })
-  })
+    it('should be an object', (done) => {
+      request.get('api/notifications')
+        .set('Authorization', token)
+        .end(function(err, res){
+            expect(res.status).to.equal(200)
+            expect(res.body).to.be.an('object')
+            done();
+      });
+    });
+  });
+
+
   after((done) => {
     db.connection.db.dropDatabase(() => {
       db.connection.close(() => {

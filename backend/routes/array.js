@@ -1,11 +1,10 @@
 const route = require('express').Router();
 const auth = require('../auth/auth');
-// const authorization = require('../auth/auth');
 
-const notifications = require('../controllers/notificationsController');
+const array = require('../controllers/arrayController');
 
 // Unsecured routes
-route.get('/', auth, notifications.getNotifications);
+route.get('/', auth, array.getArray);
 
 // Secured routes
 // route.get('/', authorization, users.getAllUsers);

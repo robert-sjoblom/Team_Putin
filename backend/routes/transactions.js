@@ -1,13 +1,14 @@
 const route = require('express').Router();
+const auth = require('../auth/auth');
 // const authorization = require('../auth/auth');
 
 const transactions = require('../controllers/transactionsController');
 const revenue = require('../controllers/transactionsRevenueController');
 
 // Unsecured routes
-route.get('/', transactions.getTransactions);
-route.get('/getrevenue', revenue.getRevenue);
-route.post('/', transactions.makeTransaction);
+route.get('/', auth, transactions.getTransactions);
+route.get('/getrevenue', auth, revenue.getRevenue);
+route.post('/', auth, transactions.makeTransaction);
 
 // Secured routes
 // route.get('/', authorization, users.getAllUsers);
