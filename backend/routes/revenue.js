@@ -1,4 +1,4 @@
-const route = require('express').Router();
+/* const route = require('express').Router();
 // const authorization = require('../auth/auth');
 
 const transactions = require('../controllers/transactionsController');
@@ -13,4 +13,4 @@ route.get('/getrevenue', transactions.getRevenue);
 // route.get('/:id', authorization, users.getUser);
 // route.put('/:id', authorization, users.updateUser);
 // route.delete('/:id', authorization, users.removeUser);
-module.exports = route;
+module.exports = route; */

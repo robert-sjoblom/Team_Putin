@@ -1,6 +1,12 @@
 import React from 'react';
+import Requests from '../../../Request';
 
-const OrderValue = () => {
+class OrderValue extends React.Component {
+    state = { orderValue: 0 }
+    componentDidMount() {
+        
+    }
+    render(){
     return (
         <div className="col-xl-3 col-md-6">
             <div className="card mini-stat bg-primary">
@@ -17,6 +23,7 @@ const OrderValue = () => {
             </div>
         </div>
     )
+    }
 }
 
 export default OrderValue;
