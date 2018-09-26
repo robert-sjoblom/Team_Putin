@@ -1,14 +1,22 @@
 const db = require('mongoose');
 
-const Average = require('../models/order');
+const Order = require('../models/order');
 
-exports.getAverage = (req, res) => {
+exports.getOrderValue = (req, res) => {
     
-    Average
+    Order
         .find()
         .exec()
-        .then(Transactions => {
-           res.status(200).json(Transactions.reduce((sum, item) => sum + item.amount, 0))
+        .then(orders => {
+            const total = orders.reduce((prev, curr) => {
+                curr.orderValue
+                return prev + curr.orderValue;
+            }, 0)
+            
+            const average = total / orders.length;
+            console.log("Inifrån averageController: ", average)
+            return res.status(200).json({ average: average.toFixed(2) })
         })
+        
         .catch(err => res.status(500).json({ error:err }));
 };
