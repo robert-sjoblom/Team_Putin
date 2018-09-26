@@ -9,7 +9,6 @@ class ProductSold extends React.Component {
         })
        .then(res => {
         this.setState({ ...this.state, length: res.orders.length })
-        console.log("Här letar vi efter: ", res)
     }) 
        .catch(err => console.log(err));
     }
