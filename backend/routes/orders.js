@@ -6,6 +6,7 @@ const average = require('../controllers/averageController');
 
 // Unsecured routes
 route.get('/getOrdersLength', orders.getOrdersLength);
+route.get('/getYearlyIncomes', orders.getYearlyIncomes);
 route.post('/getSpecificOrders', orders.getSpecificOrders);
 route.post('/', orders.placeOrder);
 route.get('/getOrderValue', average.getOrderValue);
