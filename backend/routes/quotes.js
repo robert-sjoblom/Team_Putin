@@ -1,9 +1,9 @@
 const route = require('express').Router();
-// const authorization = require('../auth/auth');
+const auth = require('../auth/auth');
 
 const quotes = require('../controllers/quotesController');
 
 // Unsecured routes
-route.post('/', quotes.addQuote);
+route.get('/', auth, quotes.getQuote);
 
 module.exports = route;

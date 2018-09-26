@@ -1,22 +1,23 @@
-const db = require('mongoose');
-
-const Quote = require('../models/quote');
+const request = require('request');
 
 exports.getQuote = (req, res) => {
-  Quote.findOne()
-    .exec()
-    .then(quote => res.status(200).json({ quote }))
-    .catch(err => res.status(500).json({ error: err }));
-};
+  const options = {
+    url: 'https://quotes.rest/qod',
+    headers: {
+      'Accept': 'application/json' //eslint-disable-line
+    }
+  };
 
-exports.addQuote = (req, res) => {
-  const quote = new Quote({
-    _id: new db.Types.ObjectId(),
-    ...req.body
+  const defaultQuote = {
+    message: 'Only strippers shave above the knee.',
+    name: 'Linda Belcher',
+    position: 'Wife. Mother.'
+  };
+
+  request(options, (err, respone, body) => {
+    if (err) {
+      return res.status(500).json({ quote: defaultQuote });
+    }
+    return res.status(200).json({ quote: JSON.parse(body) });
   });
-
-  Quote.remove({})
-    .exec()
-    .then(() => console.log('Quotes was removed!'))
-    .catch(err => res.status(500).json({ error: err }));
 };

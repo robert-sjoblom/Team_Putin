@@ -43,33 +43,6 @@ describe('Quote function API tests', () => {
       });
   });
 
-  describe('#POST /quotes', () => {
-    const inspiringQuote = {
-      message: 'This is an inspirational quote',
-      name: 'Bob Belcher',
-      position: 'CEO'
-    };
-
-    it('should not be able to post quotes without token', (done) => {
-      request.post('api/quotes')
-        .send(inspiringQuote)
-        .end(function (err, res) { //eslint-disable-line 
-          expect(res.status).to.equal(401);
-          done();
-        });
-    });
-
-    it('should be able to post quotes with token', (done) => {
-      request.post('api/quotes')
-        .set('Authorization', token)
-        .send(inspiringQuote)
-        .end(function (err, res) { //eslint-disable-line 
-          expect(res.status).to.equal(201);
-          done();
-        });
-    });
-  });
-
   describe('#GET /quotes', () => { //eslint-disable-line
     it('should not get any quotes without token', (done) => {
       request.get('api/quotes')
@@ -103,23 +76,6 @@ describe('Quote function API tests', () => {
         .end(function (err, res) { //eslint-disable-line 
           expect(res.body.quote).to.be.an('object');
           done();
-        });
-    });
-
-    it('quote should have correct keys', (done) => {
-      request.get('api/quotes')
-        .set('Authorization', token)
-        .end(function (err, res) { //eslint-disable-line 
-          expect(res.body.quote).to.have.keys('message', 'name', 'position');
-          done();
-        });
-    });
-
-    it('quote message should be', (done) => {
-      request.get('api/quotes')
-        .set('Authorization', token)
-        .end(function (err, res) { //eslint-disable-line
-          expect(res.body.quote.message).to.equal('This is an inspirational quote');
         });
     });
   });
