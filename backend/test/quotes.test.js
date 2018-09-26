@@ -9,9 +9,6 @@ const app = require('../app');
 const { expect } = chai;
 const config = require('../config');
 
-const activityToAdd = {
-  description: 'This is a test activity.'
-};
 const user = {
   email: 'dsadsa@dsa.com',
   password: 'dsadsa',
@@ -65,16 +62,16 @@ describe('Quote function API tests', () => {
       request.get('api/quotes')
         .set('Authorization', token)
         .end(function (err, res) { //eslint-disable-line
-          expect(res.body).to.have.key('quote');
+          expect(res.body).to.have.key('quotes');
           done();
         });
     });
 
-    it('quote should be an object', (done) => {
+    it('quote should be an array', (done) => {
       request.get('api/quotes')
         .set('Authorization', token)
         .end(function (err, res) { //eslint-disable-line 
-          expect(res.body.quote).to.be.an('object');
+          expect(res.body.quotes).to.be.an('array');
           done();
         });
     });

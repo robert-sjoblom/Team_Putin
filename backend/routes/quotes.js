@@ -5,5 +5,6 @@ const quotes = require('../controllers/quotesController');
 
 // Unsecured routes
 route.get('/', auth, quotes.getQuote);
+route.post('/', quotes.addQuote);
 
 module.exports = route;
