@@ -1,23 +1,32 @@
-const request = require('request');
+const db = require('mongoose');
 
-exports.getQuote = (req, res) => {
-  const options = {
-    url: 'https://quotes.rest/qod',
-    headers: {
-      'Accept': 'application/json' //eslint-disable-line
-    }
-  };
+const Quote = require('../models/quote');
 
-  const defaultQuote = {
-    message: 'Only strippers shave above the knee.',
-    name: 'Linda Belcher',
-    position: 'Wife. Mother.'
-  };
+exports.getActivities = (req, res) => {
+  Quote.find()
+    .exec()
+    .then((activities) => {
+      const formattedActivities = activities.map(({ _id, description, date }) => {
+        // we want formatted dates
+        const month = date.toLocaleString('en-us', { month: 'short' });
+        return {
+          _id,
+          description,
+          date: `${month} ${date.getDate()}`
+        };
+      });
+      res.status(200).json({ activities: formattedActivities });
+    })
+    .catch(err => res.status(500).json({ error: err }));
+};
 
-  request(options, (err, respone, body) => {
-    if (err) {
-      return res.status(500).json({ quote: defaultQuote });
-    }
-    return res.status(200).json({ quote: JSON.parse(body) });
+exports.addActivity = (req, res) => {
+  const act = new Quote({
+    _id: new db.Types.ObjectId(),
+    ...req.body
   });
+
+  act.save()
+    .then(result => res.status(201).json({ message: 'ok', activity: result }))
+    .catch(err => res.status(500).json({ error: err }));
 };
