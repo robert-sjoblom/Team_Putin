@@ -26,4 +26,3 @@ class BalanceGraph extends React.Component {
 }
 
 export default BalanceGraph;
-
