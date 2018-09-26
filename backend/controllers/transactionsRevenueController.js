@@ -8,8 +8,8 @@ exports.getRevenue = (req, res) => {
     Transaction
         .find(query)
         .exec()
-        .then(Transactions => {
-           res.status(200).json(Transactions.reduce((sum, item) => sum + item.amount, 0))
+        .then(transactions => {
+           res.status(200).json(transactions.reduce((sum, item) => sum + item.amount, 0))
         })
         .catch(err => res.status(500).json({ error:err }));
 };
