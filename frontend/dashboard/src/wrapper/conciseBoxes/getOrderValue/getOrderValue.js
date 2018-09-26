@@ -6,7 +6,6 @@ class OrderValue extends React.Component {
     componentDidMount() {
         Requests.get('orders/getOrderValue')
         .then(res => {
-            console.log("Average-svar: ", res.average)
           this.setState({ ...this.state, average: res.average })
         })
         .catch(err => console.log(err));
