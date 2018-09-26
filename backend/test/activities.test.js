@@ -47,7 +47,7 @@ describe('Activity list API tests', () => {
     it('should not get any activities without token', (done) => {
       request.get('api/activities')
         .end(function (err, res) { //eslint-disable-line
-          expect(401);
+          expect(res.status).to.equal(401);
           done();
         });
     });
@@ -56,7 +56,7 @@ describe('Activity list API tests', () => {
       request.get('api/activities')
         .set('Authorization', token)
         .end(function (err, res) { //eslint-disable-line
-          expect(200);
+          expect(res.status).to.equal(200);
           done();
         });
     });
@@ -76,7 +76,10 @@ describe('Activity list API tests', () => {
     it('should respond with 401 when creating an unauthorized Activity', function (done) { //eslint-disable-line
       request.post('api/activities')
         .send(activityToAdd)
-        .expect(401, done);
+        .end(function (err, res) { //eslint-disable-line
+          expect(res.status).to.equal(401);
+          done();
+        });
     });
 
     it('should respond with 201 when creating a new Activity', function (done) { //eslint-disable-line
