@@ -25,16 +25,13 @@ exports.placeOrder = (req, res) => {
       status: order.status,
       orderNr: order.orderNr,
       orderValue: order.orderValue,
-      orderType: order.type,
+      orderType: order.type || order.orderType,
       orderDate: order.orderDate
     })
   ));
 
   Order.insertMany(incomingOrders)
-    .then((resp) => {
-      console.log(resp);
-      return res.status(201).json({ message: 'New order placed!' });
-    })
+    .then(() => res.status(201).json({ message: 'New order placed!' }))
     .then(() => {
       const newNote = new Notification({
         _id: new db.Types.ObjectId(),
