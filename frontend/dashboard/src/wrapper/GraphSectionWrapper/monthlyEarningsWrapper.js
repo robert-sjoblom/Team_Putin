@@ -21,9 +21,13 @@ class MonthlyEarnings extends React.Component {
                                 <p className="text-muted ">Total Income</p>
                             </div>
                         </div>
-
-                        { this.props.graphData.type === "donut" && <DonutDiagram data={this.props.graphData}></DonutDiagram> }
-                        { this.props.graphData.type === "bar" && <BarDiagram data={this.props.graphData}></BarDiagram> }
+                        
+                        { !this.props.graphData.isLoaded && 
+                            <div className="dashboard-charts morris-charts"></div> }
+                        { this.props.graphData.type === "donut" && this.props.graphData.isLoaded &&
+                            <DonutDiagram data={this.props.graphData}></DonutDiagram> }
+                        { this.props.graphData.type === "bar" && this.props.graphData.isLoaded &&
+                            <BarDiagram data={this.props.graphData}></BarDiagram> }
                     </div>
                 </div>
             </div>
