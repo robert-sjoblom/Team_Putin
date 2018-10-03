@@ -1,0 +1,91 @@
+swagger: "2.0"
+info:
+  description: "This is the API documentation for [Lexa](https://github.com/robert-sjoblom/Team_Putin)."
+  version: "1.0.0"
+  title: "Team Putin"
+host: "localhost:3001"
+basePath: "/api"
+tags:
+- name: "orders"
+  description: "Everything about your orders"
+schemes:
+- "http"
+paths:
+  /orders/getSpecificOrders:
+    post:
+      tags:
+      - "orders"
+      summary: "Get specific orders, based on the body filter"
+      description: ""
+      operationId: "getSpecificOrders"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Filter that specifies that you want all orders of a special kind."
+        schema:
+          $ref: "#/definitions/Order"
+      responses:
+        200:
+          description: "Successfully got requested orders"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Order"
+        401:
+          description: "Missing or invalid token"
+        500:
+          description: "Unexpected server error"
+  /pet/getYearlyIncomes:
+    get:
+      tags:
+      - "orders"
+      summary: "Get yearly incomes for every recorded year, and for all kinds of order types"
+      description: ""
+      operationId: "getYearlyIncomes"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Successfully completed request"
+          schema:
+            $ref: "#/definitions/Order"
+        401:
+          description: "Missing or invalid token"
+        500:
+          description: "Unexpected server error"
+definitions:
+  Order:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+        format: "guid"
+      status:
+        type: "string"
+        description: "Order Status"
+        enum:
+        - "cancelled"
+        - "delivered"
+        - "shipped"
+      orderNr:
+        type: "integer"
+        format: "int64"
+      orderValue:
+        type: "number"
+        format: "float64"
+      orderType:
+        type: "string"
+        description: "Order Type"
+        enum:
+        - "download"
+        - "in-store"
+        - "mail-order"
+      orderDate:
+        type: "string"
+        format: "Date"
+        default: "Current date and time"
+  
