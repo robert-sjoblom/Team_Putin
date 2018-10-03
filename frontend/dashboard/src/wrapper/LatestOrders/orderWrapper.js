@@ -1,7 +1,19 @@
 import React from 'react';
 import OrderItem from './orderItem';
+import Requests from '../../Request';
 
 class OrderWrapper extends React.Component {
+  state = {
+    notes: []
+  }
+
+  componentDidMount(){
+    Requests.get('orders')
+      .then(result => {
+        this.setState(result)
+      })
+      .catch(err => console.log(err));
+  }
 
   render() {
     return (
@@ -14,9 +26,23 @@ class OrderWrapper extends React.Component {
               <table className="table table-vertical mb-1">
 
                 <tbody>
-                  <OrderItem name="Test" status="Delivered" amount="1,230$" date="10/07/2017"></OrderItem>
+                      {this.state.notes.map((note, index) => {
+                          return (
+                            <OrderItem
+                            key={index}
+                            name={note._id}
+                            status={note.status}
+                            amount={note.orderValue}
+                            date={note.orderDate}
+                            >
+                            </OrderItem>
+                          )
+                      }
+                      )}
+                              
+                  {/* <OrderItem name="Test" status="Delivered" amount="1,230$" date="10/07/2017"></OrderItem> */}
 
-                  <tr>
+                  {/* <tr>
                     <td>#52140300</td>
                     <td>
                       <img src={require('../../assets/images/users/user-2.jpg')} alt="user-image" className="thumb-sm mr-2 rounded-circle" />
@@ -103,7 +129,7 @@ class OrderWrapper extends React.Component {
                     <td>
                       <button type="button" className="btn btn-secondary btn-sm waves-effect waves-light">Edit</button>
                     </td>
-                  </tr>
+                  </tr> */}
 
                 </tbody>
               </table>

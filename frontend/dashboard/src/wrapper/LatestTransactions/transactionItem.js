@@ -1,19 +1,32 @@
 import React from 'react';
 
-const TransactionItem = ({ name, status, amount, date }) => {
-  return (
-    <tr>
+class TransactionItem extends React.Component {
+
+  checkStatus(status){
+    if(status == 'completed'){
+      return 'mdi mdi-checkbox-blank-circle text-success'
+    }
+    if(status == 'awaiting payment'){
+      return 'mdi mdi-checkbox-blank-circle text-warning'
+    }
+    if(status == 'payment expired'){
+      return 'mdi mdi-checkbox-blank-circle text-danger'
+    }
+  }
+  render(){
+    return (
+      <tr>
       <td>
         <img src={require("../../assets/images/users/user-1.jpg")} alt="user-image" className="thumb-sm rounded-circle mr-2" />
-        {name}
+        {this.props.name}
       </td>
-      <td><i className="mdi mdi-checkbox-blank-circle text-success"></i>{status}</td>
+      <td><i className={this.checkStatus(this.props.status)}></i>{this.props.status}</td>
       <td>
-        {amount}
+        {this.props.amount}
         <p className="m-0 text-muted font-14">amount</p>
       </td>
       <td>
-        {date}
+        {this.props.date}
         <p className="m-0 text-muted font-14">date</p>
       </td>
       <td>
@@ -21,6 +34,7 @@ const TransactionItem = ({ name, status, amount, date }) => {
       </td>
     </tr>
   )
+}
 }
 
 export default TransactionItem;

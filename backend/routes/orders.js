@@ -8,7 +8,7 @@ const average = require('../controllers/averageController');
 route.get('/getOrdersLength', auth, orders.getOrdersLength);
 route.get('/getYearlyIncomes', auth, orders.getYearlyIncomes);
 route.get('/getOrderValue', auth, average.getOrderValue);
-
+route.get('/', auth, orders.getAllOrders)
 // POST
 route.post('/getSpecificOrders', auth, orders.getSpecificOrders);
 route.post('/', auth, orders.placeOrder);

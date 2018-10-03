@@ -1,7 +1,19 @@
 import React from 'react';
 import TransactionItem from './transactionItem';
+import Requests from '../../Request'
 
 class TransactionWrapper extends React.Component{
+
+    state = {
+        notes: []
+    }
+    componentDidMount(){
+      Requests.get('transactions')
+        .then(result => {
+          this.setState(result)
+        })
+        .catch(err => console.log(err));
+    }
 
 render() {
     return (
@@ -14,7 +26,21 @@ render() {
                         <table className="table table-vertical">
 
                             <tbody>
-                                    <TransactionItem name="Juan Deag" status="Confirmed" amount="14,650$" date="10/12/2044"></TransactionItem>
+
+                                    {this.state.notes.map((note, index) => {
+                                        return (
+                                          <TransactionItem
+                                          key={index}
+                                          name={note._id}
+                                          status={note.status}
+                                          amount={note.amount}
+                                          date={note.transactionDate}
+                                          >
+                                          </TransactionItem>
+                                        )
+                                    }
+                                    )}
+                                    {/* <TransactionItem name="Juan Deag" status="Confirmed" amount="14,650$" date="10/12/2044"></TransactionItem>
                                 <tr>
                                     <td>
                                         <img src={require("../../assets/images/users/user-3.jpg")} alt="user-image" className="thumb-sm rounded-circle mr-2" />
@@ -89,7 +115,7 @@ render() {
                                     <td>
                                         <button type="button" className="btn btn-secondary btn-sm waves-effect waves-light">Edit</button>
                                     </td>
-                                </tr>
+                                </tr> */}
 
                             </tbody>
                         </table>

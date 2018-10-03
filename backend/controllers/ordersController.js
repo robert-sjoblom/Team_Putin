@@ -125,3 +125,11 @@ exports.getYearlyIncomes = (req, res) => {
     })
     .catch(err => res.status(500).json({ error: err }));
 };
+
+exports.getAllOrders = (req, res) => {
+  Order
+  .find()
+  .exec()
+  .then(order => res.status(200).json({ notes: order }))
+  .catch(err => res.status(500).json({ error: err }));
+}
