@@ -36,6 +36,6 @@ exports.getTransactions = (req, res) => {
   Transaction
     .find()
     .exec()
-    .then(transaction => res.status(200).json({ notes: [transaction] }))
+    .then(transaction => res.status(200).json({ notes: transaction }))
     .catch(err => res.status(500).json({ error: err }));
 };
