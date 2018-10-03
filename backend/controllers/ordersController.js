@@ -11,24 +11,26 @@ exports.getOrdersLength = (req, res) => {
 };
 
 exports.placeOrder = (req, res) => {
-  const {
-    status,
-    orderNr,
-    orderValue,
-    orderType,
-    orderDate
-  } = req.body;
+  // Make sure the incoming order/orders is an array.
+  let orders;
+  if (Array.isArray(req.body)) {
+    orders = req.body;
+  } else {
+    orders = [req.body];
+  }
 
-  const incomingOrder = new Order({
-    _id: new db.Types.ObjectId(),
-    status,
-    orderNr,
-    orderValue,
-    orderType,
-    orderDate
-  });
-  incomingOrder
-    .save()
+  const incomingOrders = orders.map(order => (
+    new Order({
+      _id: new db.Types.ObjectId(),
+      status: order.status,
+      orderNr: order.orderNr,
+      orderValue: order.orderValue,
+      orderType: order.type || order.orderType,
+      orderDate: order.orderDate
+    })
+  ));
+
+  Order.insertMany(incomingOrders)
     .then(() => res.status(201).json({ message: 'New order placed!' }))
     .then(() => {
       const newNote = new Notification({

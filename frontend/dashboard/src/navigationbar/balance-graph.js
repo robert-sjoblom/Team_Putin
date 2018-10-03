@@ -18,7 +18,6 @@ class BalanceGraph extends React.Component {
                     barColor: '#7A6FBE'
                 })
             })
-        
     }
     
     render() {
@@ -27,4 +26,3 @@ class BalanceGraph extends React.Component {
 }
 
 export default BalanceGraph;
-

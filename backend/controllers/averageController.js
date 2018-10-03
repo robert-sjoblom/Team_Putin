@@ -14,7 +14,7 @@ exports.getOrderValue = (req, res) => {
             }, 0)
             
             const average = total / orders.length;
-            //console.log("Inifrån averageController: ", average)
+            console.log("Inifrån averageController: ", average)
             return res.status(200).json({ average: average.toFixed(2) })
         })                  
         
