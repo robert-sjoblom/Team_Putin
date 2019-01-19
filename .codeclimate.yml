@@ -56,3 +56,4 @@ exclude_patterns:
 - "**/vendor/"
 - "**/*.d.ts"
 - "/frontend/plugins/*"
+- "/frontend/assets/*"
